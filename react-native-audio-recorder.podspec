@@ -6,13 +6,9 @@ Pod::Spec.new do |s|
   s.name         = "react-native-audio-recorder"
   s.version      = package["version"]
   s.summary      = package["description"]
-  s.description  = <<-DESC
-                  react-native-audio-recorder
-                   DESC
-  s.homepage     = "https://github.com/nabidreams/react-native-audio-recorder"
-  s.license      = "MIT"
-  # s.license    = { :type => "MIT", :file => "FILE_LICENSE" }
-  s.authors      = { "krazijames" => "krazijames@gmail.com" }
+  s.homepage     = package["homepage"]
+  s.license      = package["license"]
+  s.authors      = package["author"]
   s.platforms    = { :ios => "9.0", :tvos => "10.0" }
   s.source       = { :git => "https://github.com/nabidreams/react-native-audio-recorder.git", :tag => "#{s.version}" }
 

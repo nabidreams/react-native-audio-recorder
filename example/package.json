@@ -1,5 +1,5 @@
 {
-  "name": "AudioRecorderExample",
+  "name": "@nabidreams/react-native-audio-recorder-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {

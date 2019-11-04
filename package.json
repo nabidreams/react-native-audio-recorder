@@ -1,33 +1,33 @@
 {
-  "name": "react-native-audio-recorder",
-  "title": "React Native Audio Recorder",
-  "version": "1.0.0",
-  "description": "TODO",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nabidreams/react-native-audio-recorder.git",
-    "baseUrl": "https://github.com/nabidreams/react-native-audio-recorder"
-  },
+  "name": "@nabidreams/react-native-audio-recorder",
+  "version": "0.0.1",
+  "description": "React Native Audio Recorder",
   "keywords": [
-    "react-native"
+    "react-native",
+    "audio",
+    "recorder"
   ],
+  "homepage": "https://github.com/nabidreams/react-native-audio-recorder",
+  "license": "MIT",
   "author": {
     "name": "krazijames",
     "email": "krazijames@gmail.com"
   },
-  "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
-  "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.59.0-rc.0 <1.0.x"
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nabidreams/react-native-audio-recorder.git"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
   "devDependencies": {
     "react": "^16.8.3",
     "react-native": "^0.59.10"
+  },
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.59.0-rc.0 <1.0.x"
   }
 }
