@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import AudioRecorder from 'react-native-audio-recorder';
+import AudioRecorder from '@nabidreams/react-native-audio-recorder';
 
 export default class App extends Component<{}> {
   state = {

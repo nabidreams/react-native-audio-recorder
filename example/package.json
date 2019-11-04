@@ -11,9 +11,9 @@
     "postinstall": "node ../scripts/examples_postinstall.js"
   },
   "dependencies": {
+    "@nabidreams/react-native-audio-recorder": "file:../",
     "react": "16.9.0",
-    "react-native": "0.61.4",
-    "react-native-audio-recorder": "file:../"
+    "react-native": "0.61.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
