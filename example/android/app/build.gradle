@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.audiorecorderexample"
+        applicationId "nabidreams.audiorecorder.example"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
