@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "watch": "node ./watch.js",
     "test": "jest",
     "lint": "eslint .",
     "postinstall": "node ../scripts/examples_postinstall.js"
@@ -20,9 +21,11 @@
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "chokidar": "^3.3.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
+    "parse-gitignore": "^1.0.1",
     "react-test-renderer": "16.9.0"
   },
   "jest": {
