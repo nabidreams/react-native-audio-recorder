@@ -15,13 +15,13 @@ import AudioRecorder from '@nabidreams/react-native-audio-recorder';
 export default class App extends Component<{}> {
   state = {
     status: 'starting',
-    message: '--'
+    message: '--',
   };
   componentDidMount() {
     AudioRecorder.sampleMethod('Testing', 123, (message) => {
       this.setState({
         status: 'native callback received',
-        message
+        message,
       });
     });
   }
