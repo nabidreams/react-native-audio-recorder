@@ -50,7 +50,6 @@ AudioRecorder;
 ```sh
 yarn
 cd example && yarn
-cd ios && pod install
 ```
 
 ### Run Example
