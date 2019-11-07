@@ -1,4 +1,4 @@
-package com.audiorecorderexample;
+package nabidreams.audiorecorder.example;
 
 import com.facebook.react.ReactActivity;
 
