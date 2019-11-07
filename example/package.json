@@ -6,10 +6,10 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "watch": "node ./watch.js",
+    "watch": "node ./sync.js --watch",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node ../scripts/examples_postinstall.js"
+    "postinstall": "node ./sync.js"
   },
   "dependencies": {
     "@nabidreams/react-native-audio-recorder": "file:../",
@@ -21,6 +21,7 @@
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
+    "commander": "^4.0.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
