@@ -70,10 +70,10 @@ $ yarn ios
 $ yarn android
 ```
 
-#### Watch (for Native Source Change)
+#### Watch Source Change
 
 ```sh
 $ yarn watch
 ```
 
-> After source change, run `yarn ios` or `yarn android` again to rebuild example app with updated sources.
+> After native module source change, run `yarn ios` or `yarn android` again to rebuild example app with updated sources.
