@@ -1,5 +1,5 @@
 {
-  "name": "@nabidreams/react-native-audio-recorder-example",
+  "name": "@nabidreams/react-native-audio-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "postinstall": "node ./sync.js"
   },
   "dependencies": {
-    "@nabidreams/react-native-audio-recorder": "file:../",
+    "@nabidreams/react-native-audio": "file:../",
     "react": "16.9.0",
     "react-native": "0.61.4"
   },

@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
 
-const { AudioRecorder } = NativeModules;
+const { Audio } = NativeModules;
 
-export default AudioRecorder;
+export default Audio;

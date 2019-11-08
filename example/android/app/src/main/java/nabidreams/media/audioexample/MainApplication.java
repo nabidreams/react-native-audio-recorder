@@ -1,4 +1,4 @@
-package nabidreams.audiorecorder.example;
+package nabidreams.media.audioexample;
 
 import android.app.Application;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package nabidreams.audiorecorder.example;
+package nabidreams.media.audioexample;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "AudioRecorderExample";
+    return "AudioExample";
   }
 }

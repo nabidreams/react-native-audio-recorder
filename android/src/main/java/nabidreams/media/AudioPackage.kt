@@ -1,4 +1,4 @@
-package nabidreams.audiorecorder
+package nabidreams.media
 
 import java.util.Arrays
 
@@ -7,9 +7,9 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-class AudioRecorderPackage : ReactPackage {
+class AudioPackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-        return Arrays.asList<NativeModule>(AudioRecorderModule(reactContext))
+        return Arrays.asList<NativeModule>(AudioModule(reactContext))
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
