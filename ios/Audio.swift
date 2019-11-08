@@ -1,7 +1,7 @@
 import Foundation
 
-@objc(AudioRecorder)
-class AudioRecorder: NSObject {
+@objc(Audio)
+class Audio: NSObject {
 
   @objc(sampleMethod:numberArgument:callback:)
   func sampleMethod(stringArgument: String, numberArgument: NSInteger, callback: RCTResponseSenderBlock) -> Void {
