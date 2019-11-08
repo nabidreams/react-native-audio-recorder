@@ -1,13 +1,14 @@
 {
-  "name": "@nabidreams/react-native-audio-recorder",
+  "name": "@nabidreams/react-native-audio",
   "version": "0.0.1",
-  "description": "React Native Audio Recorder",
+  "description": "React Native Audio",
   "keywords": [
     "react-native",
     "audio",
-    "recorder"
+    "recorder",
+    "player"
   ],
-  "homepage": "https://github.com/nabidreams/react-native-audio-recorder",
+  "homepage": "https://github.com/nabidreams/react-native-audio",
   "license": "MIT",
   "author": {
     "name": "krazijames",
@@ -16,7 +17,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nabidreams/react-native-audio-recorder.git"
+    "url": "https://github.com/nabidreams/react-native-audio.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -835,7 +835,7 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@nabidreams/react-native-audio-recorder@file:..":
+"@nabidreams/react-native-audio@file:..":
   version "0.0.1"
 
 "@react-native-community/cli-platform-android@^3.0.0-alpha.1", "@react-native-community/cli-platform-android@^3.0.0-alpha.7":

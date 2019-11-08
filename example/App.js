@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import AudioRecorder from '@nabidreams/react-native-audio-recorder';
+import Audio from '@nabidreams/react-native-audio';
 
 export default class App extends Component<{}> {
   state = {
@@ -18,7 +18,7 @@ export default class App extends Component<{}> {
     message: '--',
   };
   componentDidMount() {
-    AudioRecorder.sampleMethod('Testing', 123, (message) => {
+    Audio.sampleMethod('Testing', 123, (message) => {
       this.setState({
         status: 'native callback received',
         message,
@@ -28,7 +28,7 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>☆AudioRecorder example☆</Text>
+        <Text style={styles.welcome}>☆Audio example☆</Text>
         <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
         <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
         <Text style={styles.instructions}>{this.state.message}</Text>
