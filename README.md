@@ -21,7 +21,7 @@
 
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
 
-- Add `import nabidreams.AudioRecorderPackage;` to the imports at the top of the file
+- Add `import nabidreams.audiorecorder.AudioRecorderPackage;` to the imports at the top of the file
 - Add `new AudioRecorderPackage()` to the list returned by the `getPackages()` method
 
 2. Append the following lines to `android/settings.gradle`:
@@ -48,30 +48,32 @@ AudioRecorder;
 ### Installation
 
 ```sh
-yarn
-cd example && yarn
+$ cd example && yarn
+$ cd .. && yarn
 ```
+
+> Install `example`'s dependancies first for faster installation.
 
 ### Run Example
 
-> Execute scripts below under `example` directory.
+Execute scripts below under `example` directory.
 
 #### iOS
 
 ```sh
-yarn ios
+$ yarn ios
 ```
 
 #### Andoid
 
 ```sh
-yarn android
+$ yarn android
 ```
 
-### Watch (for Native Source Change)
+#### Watch (for Native Source Change)
 
-```
-yarn watch
+```sh
+$ yarn watch
 ```
 
 > After source change, run `yarn ios` or `yarn android` again to rebuild example app with updated sources.
