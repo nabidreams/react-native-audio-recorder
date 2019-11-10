@@ -32,5 +32,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "engines": {
+    "node": ">=12 <13"
   }
 }
