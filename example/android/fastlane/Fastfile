@@ -25,7 +25,7 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Submit a new Beta Build to Firebase App Distribution"
   lane :beta do
     gradle(task: "assembleRelease")
     
