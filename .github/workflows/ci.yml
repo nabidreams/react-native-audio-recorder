@@ -8,8 +8,8 @@ env:
   CI: true
 
 jobs:
-  test-android:
-    name: Test Android
+  android:
+    name: Android
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -56,62 +56,13 @@ jobs:
 
       - name: Test
         working-directory: ./example/android
-        # env:
-        #   FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-        #   FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
-        #   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: bundle exec fastlane test
 
-  test-ios:
-    name: Test iOS
-    runs-on: macos-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Setup Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-
-      - name: Cache (node_modules)
-        uses: actions/cache@v1
-        with:
-          path: 'node_modules'
-          key: ${{ runner.OS }}-node_modules-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-node_modules-
-
-      - name: Cache (example/node_modules)
-        uses: actions/cache@v1
-        with:
-          path: 'example/node_modules'
-          key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-example/node_modules-
-
-      - name: Cache (example/ios/vendor/bundle)
-        uses: actions/cache@v1
-        with:
-          path: example/ios/vendor/bundle
-          key: ${{ runner.os }}-example/ios/vendor/bundle-${{ hashFiles('example/ios/Gemfile.lock') }}
-          restore-keys: ${{ runner.os }}-example/ios/vendor/bundle-
-
-      - name: Install Dependencies (Node)
-        working-directory: ./example
-        run: yarn
-
-      - name: Install Dependencies (Ruby)
-        working-directory: ./example/ios
-        run: gem install bundler && bundle install
-
-      - name: Test
-        working-directory: ./example/ios
-        # env:
-        #   FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_IOS }}
-        #   FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
-        #   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: bundle exec fastlane test
+      - name: Deploy Beta
+        if: github.ref == 'refs/heads/master'
+        working-directory: ./example/android
+        env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: bundle exec fastlane beta

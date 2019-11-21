@@ -28,13 +28,19 @@ fastlane android test
 
 Runs all the tests
 
+### android build
+
+```
+fastlane android build
+```
+
 ### android beta
 
 ```
 fastlane android beta
 ```
 
-Submit a new Beta Build to Crashlytics Beta
+Submit a new Beta Build to Firebase App Distribution
 
 ### android deploy
 

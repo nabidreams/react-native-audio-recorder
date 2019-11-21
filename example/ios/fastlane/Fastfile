@@ -33,16 +33,14 @@ platform :ios do
     # match(type: "appstore") # more information: https://codesigning.guide
 
     gym(
-      scheme: "AudioExample",
-      skip_package_ipa: true,
-      skip_codesigning: true
+      scheme: "AudioExample"
     ) # Build your app - more options available
 
-    # firebase_app_distribution(
-    #  app: ENV["FIREBASE_APP_ID"],
-    #  firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
-    #  firebase_cli_token: ENV["FIREBASE_TOKEN"]
-    # )
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
+      firebase_cli_token: ENV["FIREBASE_TOKEN"]
+    )
 
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
