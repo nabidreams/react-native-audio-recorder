@@ -39,6 +39,13 @@ jobs:
           key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
           restore-keys: ${{ runner.OS }}-example/node_modules-
 
+      - name: Cache (example/android/vendor/bundle)
+        uses: actions/cache@v1
+        with:
+          path: example/android/vendor/bundle
+          key: ${{ runner.os }}-example/android/vendor/bundle-${{ hashFiles('example/android/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-example/android/vendor/bundle-
+
       - name: Install Dependencies (Node)
         working-directory: ./example
         run: yarn
