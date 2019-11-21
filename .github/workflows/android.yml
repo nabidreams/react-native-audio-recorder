@@ -53,4 +53,4 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: fastlane beta
+        run: bundle exec fastlane beta
