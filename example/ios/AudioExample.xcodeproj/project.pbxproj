@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AudioExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AudioExampleTests.m */; };
 		102F58562374C09500AA53DB /* AudioExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F58542374C09500AA53DB /* AudioExample.swift */; };
+		107F0F50238696A700E11ED8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 107F0F4F238696A700E11ED8 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -47,6 +48,7 @@
 		00E356F21AD99517003FC87E /* AudioExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioExampleTests.m; sourceTree = "<group>"; };
 		102F58542374C09500AA53DB /* AudioExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioExample.swift; path = AudioExample/AudioExample.swift; sourceTree = "<group>"; };
 		102F58552374C09500AA53DB /* AudioExample-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AudioExample-Bridging-Header.h"; path = "AudioExample/AudioExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		107F0F4F238696A700E11ED8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "AudioExample/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AudioExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AudioExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = AudioExample/AppDelegate.m; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		13B07FAE1A68108700A75B9A /* AudioExample */ = {
 			isa = PBXGroup;
 			children = (
+				107F0F4F238696A700E11ED8 /* GoogleService-Info.plist */,
 				102F58552374C09500AA53DB /* AudioExample-Bridging-Header.h */,
 				102F58542374C09500AA53DB /* AudioExample.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -346,6 +349,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				107F0F50238696A700E11ED8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
