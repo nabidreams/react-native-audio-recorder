@@ -45,15 +45,15 @@ Audio;
 
 ## Development
 
+> Execute the scripts below under `example` directory.
+
 ### Install Dependancies
 
 ```sh
-$ make
+$ yarn
 ```
 
 ### Run Example
-
-Execute the scripts below under `example` directory.
 
 #### iOS
 
