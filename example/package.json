@@ -9,7 +9,7 @@
     "watch": "node ./sync.js --watch",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node ./sync.js"
+    "postinstall": "node ./sync.js && cd .. && yarn"
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
