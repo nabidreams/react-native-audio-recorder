@@ -1,3 +1,4 @@
 example
 .prettierrc.js
 yarn.lock
+Makefile

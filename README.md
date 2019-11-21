@@ -45,18 +45,15 @@ Audio;
 
 ## Development
 
-### Installation
+### Install Dependancies
 
 ```sh
-$ cd example && yarn
-$ cd .. && yarn
+$ make
 ```
-
-> Install `example`'s dependancies first for faster installation.
 
 ### Run Example
 
-Execute scripts below under `example` directory.
+Execute the scripts below under `example` directory.
 
 #### iOS
 
