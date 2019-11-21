@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "240002467684",
+    "firebase_url": "https://react-native-audio.firebaseio.com",
+    "project_id": "react-native-audio",
+    "storage_bucket": "react-native-audio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240002467684:android:af508e5ee22f8e5f775c71",
+        "android_client_info": {
+          "package_name": "nabidreams.media.audioexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240002467684-i95b7ib0f4ob0dji2l87ge1nukchh0lq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAaqoZRI_eON7m0K1UrEwgtSjJxQf7E2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240002467684-i95b7ib0f4ob0dji2l87ge1nukchh0lq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
