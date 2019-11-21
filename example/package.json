@@ -21,7 +21,7 @@
     "@babel/runtime": "^7.6.3",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "commander": "^4.0.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
