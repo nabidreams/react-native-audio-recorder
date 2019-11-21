@@ -28,12 +28,6 @@ fastlane android test
 
 Runs all the tests
 
-### android build
-
-```
-fastlane android build
-```
-
 ### android beta
 
 ```
