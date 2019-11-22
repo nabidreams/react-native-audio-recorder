@@ -1,0 +1,28 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "org.ajoberstar.grgit:grgit-gradle:4.0.0"
+  }
+}
+
+import org.ajoberstar.grgit.Grgit
+import java.time.format.DateTimeFormatter
+
+def git = Grgit.open()
+def DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmm")
+
+ext {
+    appVersion = [
+        name: git.head().abbreviatedId,
+        code: git.head().dateTime.format(formatter) as Integer
+    ]
+}
+
+task printVersion() {
+    println("Version Name: $appVersion.name")
+    println("Version Code: $appVersion.code")
+}

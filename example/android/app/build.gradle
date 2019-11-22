@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
+apply from: "./version.gradle"
 
 import com.android.build.OutputFile
 
@@ -133,8 +134,8 @@ android {
         applicationId "nabidreams.media.audioexample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode appVersion.code
+        versionName appVersion.name
     }
     splits {
         abi {
