@@ -27,6 +27,14 @@ platform :android do
 
   desc "Submit a new Beta Build to Firebase App Distribution"
   lane :beta do
+    android_set_version_name(
+      version_name: ENV["VERSION_NAME"],
+    )
+
+    android_set_version_code(
+      version_code: ENV["VERSION_CODE"],
+    )
+
     gradle(task: "assembleRelease")
     
     firebase_app_distribution(
