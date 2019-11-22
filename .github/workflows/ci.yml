@@ -67,5 +67,5 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
           export VERSION_NAME=`git rev-parse --short HEAD` && echo VERSION_NAME=$VERSION_NAME
-          export VERSION_CODE=`date +%y%m%d%H%M` && echo VERSION_CODE=$VERSION_CODE
+          export VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"` && echo VERSION_CODE=$VERSION_CODE
           bundle exec fastlane beta
