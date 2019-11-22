@@ -67,7 +67,7 @@ jobs:
         run: bundle exec fastlane test
 
       - name: Deploy Beta
-        # if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master'
         working-directory: ./example/android
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
