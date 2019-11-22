@@ -17,8 +17,8 @@ def DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMddHHmm")
 
 ext {
     appVersion = [
-        name: git.head().abbreviatedId,
-        code: git.head().dateTime.format(formatter) as Integer
+        name: System.getenv('VERSION_NAME'),
+        code: System.getenv('VERSION_CODE') as Integer
     ]
 }
 

@@ -65,4 +65,7 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: bundle exec fastlane beta
+        run: |
+          export VERSION_NAME=`git rev-parse --short HEAD` && echo VERSION_NAME=$VERSION_NAME
+          export VERSION_CODE=`date +%y%m%d%H%M` && echo VERSION_CODE=$VERSION_CODE
+          bundle exec fastlane beta
