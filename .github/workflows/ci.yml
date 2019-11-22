@@ -51,8 +51,7 @@ jobs:
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-~/.gradle/caches-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-~/.gradle/caches-
+          restore-keys: ${{ runner.os }}-~/.gradle/caches-
 
       - name: Install Dependencies (Node)
         working-directory: ./example
@@ -60,7 +59,9 @@ jobs:
 
       - name: Install Dependencies (Ruby)
         working-directory: ./example/android
-        run: gem install bundler && bundle install
+        run: |
+          gem install bundler
+          bundle install
 
       - name: Test
         working-directory: ./example/android
