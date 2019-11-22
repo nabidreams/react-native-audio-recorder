@@ -27,12 +27,22 @@ platform :android do
 
   desc "Submit a new Beta Build to Firebase App Distribution"
   lane :beta do
+    android_set_version_name(
+      version_name: ENV["VERSION_NAME"],
+    )
+
+    android_set_version_code(
+      version_code: ENV["VERSION_CODE"],
+    )
+
     gradle(task: "assembleRelease")
     
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
       firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
-      firebase_cli_token: ENV["FIREBASE_TOKEN"]
+      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      testers: ENV["FIREBASE_APP_DISTRIBUTION_TESTERS"],
+      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"]
     )
 
     # sh "your_script.sh"

@@ -32,6 +32,14 @@ platform :ios do
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
 
+    ios_set_version(
+      version: ENV["VERSION_NAME"]
+    )
+
+    ios_set_build_number(
+      build_number: ENV["VERSION_CODE"]
+    )
+
     gym(
       scheme: "AudioExample"
     ) # Build your app - more options available
@@ -39,7 +47,9 @@ platform :ios do
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
       firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
-      firebase_cli_token: ENV["FIREBASE_TOKEN"]
+      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      testers: ENV["FIREBASE_APP_DISTRIBUTION_TESTERS"],
+      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"]
     )
 
     # sh "your_script.sh"
