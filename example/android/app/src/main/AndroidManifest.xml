@@ -1,17 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="nabidreams.media.audioexample">
+  package="com.nabidreams.lib.audio.example">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-      android:name="nabidreams.media.audioexample.MainApplication"
+      android:name="com.nabidreams.lib.audio.example.MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
-        android:name="nabidreams.media.audioexample.MainActivity"
+        android:name="com.nabidreams.lib.audio.example.MainActivity"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">

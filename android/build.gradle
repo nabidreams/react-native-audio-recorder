@@ -78,7 +78,7 @@ def configureReactNativePom(def pom) {
         name packageJson.title
         artifactId packageJson.name
         version = packageJson.version
-        group = "nabidreams.media"
+        group = "com.nabidreams.lib.audio"
         description packageJson.description
         url packageJson.repository.baseUrl
 

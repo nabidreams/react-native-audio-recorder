@@ -1,4 +1,4 @@
-package nabidreams.media.audioexample;
+package com.nabidreams.lib.audio.example;
 
 import android.app.Application;
 import android.content.Context;
