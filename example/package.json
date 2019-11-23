@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
-    "react": "16.9.0",
+    "react": "16.12.0",
     "react-native": "0.61.5"
   },
   "devDependencies": {
