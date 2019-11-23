@@ -14,7 +14,7 @@
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
     "react": "16.9.0",
-    "react-native": "0.61.4"
+    "react-native": "0.61.5"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
