@@ -1,4 +1,4 @@
-package nabidreams.media.audioexample;
+package com.nabidreams.lib.audio.example;
 
 import com.facebook.react.ReactActivity;
 

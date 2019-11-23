@@ -1,4 +1,4 @@
-package nabidreams.media
+package com.nabidreams.lib.audio
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule

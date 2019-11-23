@@ -1,4 +1,4 @@
-package nabidreams.media
+package com.nabidreams.lib.audio
 
 import java.util.Arrays
 
