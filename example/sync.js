@@ -32,12 +32,28 @@ function colorizeType(type) {
   }
 }
 
+const defaultNpmIgnoredPaths = [
+  '.*.swp',
+  '._*',
+  '.DS_Store',
+  '.git',
+  '.hg',
+  '.npmrc',
+  '.lock-wscript',
+  '.svn',
+  '.wafpickle-*',
+  'config.gypi',
+  'CVS',
+  'npm-debug.log',
+  'node_modules',
+];
+
 require('sync-directory')(sourceDir, targetDir, {
   watch: program.watch,
   type: 'copy',
   exclude: [
-    /(^|[\/\\])\../,
-    'node_modules',
+    '.npmignore',
+    ...defaultNpmIgnoredPaths,
     ...parse(fs.readFileSync(path.join(sourceDir, '.npmignore'))),
   ],
   cb: ({ type, path: p }) =>
