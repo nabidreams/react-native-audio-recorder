@@ -651,7 +651,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nabidreams.media.AudioExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nabidreams.lib.audio.example;
 				PRODUCT_NAME = AudioExample;
 				SWIFT_OBJC_BRIDGING_HEADER = "AudioExample/AudioExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -674,7 +674,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nabidreams.media.AudioExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nabidreams.lib.audio.example;
 				PRODUCT_NAME = AudioExample;
 				SWIFT_OBJC_BRIDGING_HEADER = "AudioExample/AudioExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
