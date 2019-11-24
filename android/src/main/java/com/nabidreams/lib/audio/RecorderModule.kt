@@ -6,37 +6,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
 import kotlin.math.log10
 
-const val BIT_RATE = 16
-
-const val MIN_AMPLITUDE = 0
-const val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
-
-const val EPSILON = 1
-
-fun getPowerFromAmplitude(amplitude: Number): Double {
-    return 20 * log10((amplitude.toDouble() + EPSILON) / (MAX_AMPLITUDE + EPSILON))
-}
-
 class RecorderModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
-    enum class State(val value: String) {
-        STARTED("recorderStarted"),
-        STOPPED("recorderStopped")
-    }
-
-    enum class EventType(val value: String) {
-        STATE_CHANGE("recorderStateChange")
-    }
-
-    private var fileName: String = "${reactContext.externalCacheDir.absolutePath}/sample.3gp"
-
-    private var recorder: MediaRecorder? = null
-
-    private var state: State = State.STOPPED
-        set(value) {
-            field = value
-            sendEvent(EventType.STATE_CHANGE, Arguments.makeNativeMap(mapOf("state" to value.value)))
-        }
-
     override fun getName(): String {
         return "Recorder"
     }
@@ -57,13 +27,17 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
         return constants
     }
 
-    private fun sendEvent(eventType: EventType, params: Any?) {
-        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java).emit(eventType.value, params)
-    }
+    companion object {
+        const val BIT_RATE = 16
 
-    @ReactMethod
-    fun getState(promise: Promise) {
-        promise.resolve(state.value)
+        const val MIN_AMPLITUDE = 0
+        const val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
+
+        const val EPSILON = 1
+
+        private fun getPowerFromAmplitude(amplitude: Number): Double {
+            return 20 * log10((amplitude.toDouble() + EPSILON) / (MAX_AMPLITUDE + EPSILON))
+        }
     }
 
     @ReactMethod
@@ -76,6 +50,34 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
         val peakPower = getPowerFromAmplitude(recorder?.maxAmplitude ?: 0)
         promise.resolve(peakPower)
     }
+
+    enum class State(val value: String) {
+        STARTED("recorderStarted"),
+        STOPPED("recorderStopped")
+    }
+
+    private var state: State = State.STOPPED
+        set(value) {
+            field = value
+            sendEvent(EventType.STATE_CHANGE, Arguments.makeNativeMap(mapOf("state" to value.value)))
+        }
+
+    @ReactMethod
+    fun getState(promise: Promise) {
+        promise.resolve(state.value)
+    }
+
+    enum class EventType(val value: String) {
+        STATE_CHANGE("recorderStateChange")
+    }
+
+    private fun sendEvent(eventType: EventType, params: Any?) {
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java).emit(eventType.value, params)
+    }
+
+    private var fileName: String = "${reactContext.externalCacheDir.absolutePath}/sample.3gp"
+
+    private var recorder: MediaRecorder? = null
 
     fun start() {
         recorder = MediaRecorder().apply {

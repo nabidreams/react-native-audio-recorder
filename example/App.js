@@ -34,6 +34,14 @@ const styles = StyleSheet.create({
 
     backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
+  playerLevelBar: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    left: 0,
+
+    backgroundColor: 'rgba(0, 255, 0, 0.5)',
+  },
 });
 
 export default function App() {
@@ -129,6 +137,29 @@ export default function App() {
     return () => subscription.remove();
   }, []);
 
+  const [playerLevel, setPlayerLevel] = React.useState(0);
+  const playerLevelBarHeight =
+    (100 * (playerLevel - player.MIN_LEVEL)) /
+    (player.MAX_LEVEL - player.MIN_LEVEL);
+
+  React.useEffect(
+    function handlePlayingLevelChange() {
+      async function updateLevel() {
+        if ((await player.getState()) !== player.State.STARTED) {
+          setPlayerLevel(0);
+          return;
+        }
+
+        setPlayerLevel(await player.getLevel());
+
+        requestAnimationFrame(updateLevel);
+      }
+
+      updateLevel();
+    },
+    [playerState],
+  );
+
   async function toggleRecording() {
     try {
       switch (recorderState) {
@@ -179,6 +210,13 @@ export default function App() {
         }}
       />
 
+      <View
+        style={{
+          ...styles.playerLevelBar,
+          height: `${playerLevelBarHeight}%`,
+        }}
+      />
+
       <Button
         title="Request Record Audio Permission"
         onPress={requestRecordAudioPermission}
@@ -200,15 +238,19 @@ export default function App() {
         <Text style={styles.levelText}>{powerLevel.toFixed(3)} dB</Text>
       </View>
 
-      <Button
-        title={
-          playerState !== player.State.STARTED
-            ? 'Start Playing'
-            : 'Stop Playing'
-        }
-        onPress={togglePlaying}
-        disabled={!recordAudioPermissionGranted || !playerState}
-      />
+      <View>
+        <Button
+          title={
+            playerState !== player.State.STARTED
+              ? 'Start Playing'
+              : 'Stop Playing'
+          }
+          onPress={togglePlaying}
+          disabled={!recordAudioPermissionGranted || !playerState}
+        />
+        <Text style={styles.levelText}>Level</Text>
+        <Text style={styles.levelText}>{playerLevel.toFixed(3)}</Text>
+      </View>
     </View>
   );
 }
