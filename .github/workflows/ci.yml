@@ -55,7 +55,9 @@ jobs:
 
       - name: Install Dependencies (Node)
         working-directory: ./example
-        run: yarn
+        run: |
+          rm -rf ./node_modules/@nabidreams/react-native-audio
+          yarn
 
       - name: Install Dependencies (Ruby)
         working-directory: ./example/android
