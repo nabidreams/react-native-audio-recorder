@@ -3694,6 +3694,11 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
+prettier-plugin-package@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-package/-/prettier-plugin-package-0.3.1.tgz#dbb78fa0408c2ab18045ac23868bad4560607a93"
+  integrity sha512-aCx+dVwRwgzsqulCFZcLTS7gTMmn+TXhRIDTbn8ev50n0abIlvukHLLZ9qiJN+6tdSZtd40rlqMx5oQ/mvw1+w==
+
 prettier-quick@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/prettier-quick/-/prettier-quick-0.0.5.tgz#10912263ede6e99872f4d3655b6a8a205265d4ce"

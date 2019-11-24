@@ -2,14 +2,17 @@
   "name": "@nabidreams/react-native-audio-example",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "12"
+  },
   "scripts": {
     "android": "react-native run-android",
     "ios": "cd ios && pod install && cd .. && react-native run-ios",
-    "start": "react-native start",
-    "watch": "node ./sync.js --watch",
-    "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node ./sync.js && cd .. && yarn"
+    "postinstall": "node ./sync.js && cd .. && yarn",
+    "start": "react-native start",
+    "test": "jest",
+    "watch": "node ./sync.js --watch"
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
@@ -33,8 +36,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "engines": {
-    "node": "12"
   }
 }
