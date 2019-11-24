@@ -5,18 +5,16 @@ import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
 import kotlin.math.log10
-import kotlin.math.max
-import kotlin.math.pow
 
 const val BIT_RATE = 16
-const val MULTIPLIER = 20
-const val MIN_POWER = -160
 
-val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
-val MIN_AMPLITUDE = MAX_AMPLITUDE * 10.0.pow(MIN_POWER / MULTIPLIER)
+const val MIN_AMPLITUDE = 0
+const val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
+
+const val EPSILON = 1
 
 fun getPowerFromAmplitude(amplitude: Number): Double {
-    return MULTIPLIER * log10(max(amplitude.toDouble(), MIN_AMPLITUDE) / MAX_AMPLITUDE)
+    return 20 * log10((amplitude.toDouble() + EPSILON) / (MAX_AMPLITUDE + EPSILON))
 }
 
 class RecorderModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -50,7 +48,7 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
 
         constants["EventType"] = EventType.values().map { it.name to it.value }.toMap()
 
-        constants["MIN_AMPLITUDE"] = 0
+        constants["MIN_AMPLITUDE"] = MIN_AMPLITUDE
         constants["MAX_AMPLITUDE"] = MAX_AMPLITUDE
 
         constants["MIN_POWER"] = getPowerFromAmplitude(MIN_AMPLITUDE)
