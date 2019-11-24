@@ -14,8 +14,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  powerText: {
+  levelText: {
     textAlign: 'right',
+  },
+  levelBar: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    left: 0,
+
+    backgroundColor: 'red',
   },
 });
 
@@ -59,22 +67,25 @@ export default function App() {
     return () => subscription.remove();
   }, []);
 
-  const [peakPower, setPeakPower] = React.useState(recorder.MIN_POWER);
+  const [level, setLevel] = React.useState(recorder.MIN_POWER);
+  const levelBarHeight =
+    (100 * (level - recorder.MIN_POWER)) /
+    (recorder.MAX_POWER - recorder.MIN_POWER);
 
   React.useEffect(
-    function handleAudioInputChange() {
-      async function updatePeakPower() {
+    function handleRecordingLevelChange() {
+      async function updateLevel() {
         if ((await recorder.getState()) !== recorder.State.STARTED) {
-          setPeakPower(recorder.MIN_POWER);
+          setLevel(recorder.MIN_POWER);
           return;
         }
 
-        setPeakPower(await recorder.getPeakPower());
+        setLevel(await recorder.getPeakPower());
 
-        requestAnimationFrame(updatePeakPower);
+        requestAnimationFrame(updateLevel);
       }
 
-      updatePeakPower();
+      updateLevel();
     },
     [recorderState],
   );
@@ -132,6 +143,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          ...styles.levelBar,
+          height: `${levelBarHeight}%`,
+        }}
+      />
+
       <Button
         title="Request Record Audio Permission"
         onPress={requestRecordAudioPermission}
@@ -148,7 +166,7 @@ export default function App() {
           onPress={toggleRecording}
           disabled={!recordAudioPermissionGranted || !recorderState}
         />
-        <Text style={styles.powerText}>{peakPower.toFixed(3)}dB</Text>
+        <Text style={styles.levelText}>{level.toFixed(3)}dB</Text>
       </View>
 
       <Button
