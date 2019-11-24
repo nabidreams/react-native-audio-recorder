@@ -4,6 +4,15 @@ import android.media.MediaRecorder
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
+import kotlin.math.log10
+import kotlin.math.max
+
+const val MAX_AMPLITUDE = (1 shl (16 - 1)) - 1 // 16bit
+const val MIN_AMPLITUDE = MAX_AMPLITUDE * 0.00000001 // -160dB
+
+fun getPowerFromAmplitude(amplitude: Number): Double {
+    return 20 * log10(max(amplitude.toDouble(), MIN_AMPLITUDE) / MAX_AMPLITUDE)
+}
 
 class RecorderModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     enum class State(val value: String) {
@@ -36,6 +45,9 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
 
         constants["EventType"] = EventType.values().map { it.name to it.value }.toMap()
 
+        constants["MIN_POWER"] = getPowerFromAmplitude(MIN_AMPLITUDE)
+        constants["MAX_POWER"] = getPowerFromAmplitude(MAX_AMPLITUDE)
+
         return constants
     }
 
@@ -46,6 +58,12 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
     @ReactMethod
     fun getState(promise: Promise) {
         promise.resolve((state.value))
+    }
+
+    @ReactMethod
+    fun getPeakPower(promise: Promise) {
+        val peakPower = getPowerFromAmplitude(recorder?.maxAmplitude ?: 0)
+        promise.resolve(peakPower)
     }
 
     fun start() {

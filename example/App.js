@@ -1,5 +1,11 @@
 import React from 'react';
-import { PermissionsAndroid, StyleSheet, View, Button } from 'react-native';
+import {
+  PermissionsAndroid,
+  StyleSheet,
+  View,
+  Button,
+  Text,
+} from 'react-native';
 import { recorder, player } from '@nabidreams/react-native-audio';
 
 const styles = StyleSheet.create({
@@ -7,6 +13,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  powerText: {
+    textAlign: 'right',
   },
 });
 
@@ -16,7 +25,7 @@ export default function App() {
     setRecordAudioPermissionGranted,
   ] = React.useState();
 
-  async function requestRecordAudioPermission() {
+  const requestRecordAudioPermission = React.useCallback(async () => {
     try {
       const result = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
@@ -27,7 +36,7 @@ export default function App() {
     } catch (err) {
       console.warn(err);
     }
-  }
+  }, []);
 
   React.useEffect(function requestPermission() {
     requestRecordAudioPermission();
@@ -49,6 +58,26 @@ export default function App() {
 
     return () => subscription.remove();
   }, []);
+
+  const [peakPower, setPeakPower] = React.useState(recorder.MIN_POWER);
+
+  React.useEffect(
+    function handleAudioInputChange() {
+      async function updatePeakPower() {
+        if ((await recorder.getState()) !== recorder.State.STARTED) {
+          setPeakPower(recorder.MIN_POWER);
+          return;
+        }
+
+        setPeakPower(await recorder.getPeakPower());
+
+        requestAnimationFrame(updatePeakPower);
+      }
+
+      updatePeakPower();
+    },
+    [recorderState],
+  );
 
   const [playerState, setPlayerState] = React.useState();
 
@@ -109,15 +138,18 @@ export default function App() {
         disabled={recordAudioPermissionGranted}
       />
 
-      <Button
-        title={
-          recorderState !== recorder.State.STARTED
-            ? 'Start Recording'
-            : 'Stop Recording'
-        }
-        onPress={toggleRecording}
-        disabled={!recordAudioPermissionGranted || !recorderState}
-      />
+      <View>
+        <Button
+          title={
+            recorderState !== recorder.State.STARTED
+              ? 'Start Recording'
+              : 'Stop Recording'
+          }
+          onPress={toggleRecording}
+          disabled={!recordAudioPermissionGranted || !recorderState}
+        />
+        <Text style={styles.powerText}>{peakPower.toFixed(3)}dB</Text>
+      </View>
 
       <Button
         title={
