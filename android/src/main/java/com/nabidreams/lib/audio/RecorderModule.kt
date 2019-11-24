@@ -12,7 +12,7 @@ const val BIT_RATE = 16
 const val MULTIPLIER = 20
 const val MIN_POWER = -160
 
-val MAX_AMPLITUDE = (1 shl (BIT_RATE - 1)) - 1
+val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
 val MIN_AMPLITUDE = MAX_AMPLITUDE * 10.0.pow(MIN_POWER / MULTIPLIER)
 
 fun getPowerFromAmplitude(amplitude: Number): Double {
