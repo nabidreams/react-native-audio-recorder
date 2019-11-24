@@ -85,7 +85,10 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    return () => recorder.stop();
+    return () => {
+      recorder.stop();
+      player.stop();
+    };
   }, []);
 
   const [amplitudeLevel, setAmplitudeLevel] = React.useState(
