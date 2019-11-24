@@ -6,12 +6,17 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
 import kotlin.math.log10
 import kotlin.math.max
+import kotlin.math.pow
 
-const val MAX_AMPLITUDE = (1 shl (16 - 1)) - 1 // 16bit
-const val MIN_AMPLITUDE = MAX_AMPLITUDE * 0.00000001 // -160dB
+const val BIT_RATE = 16
+const val MULTIPLIER = 20
+const val MIN_POWER = -160
+
+val MAX_AMPLITUDE = (1 shl (BIT_RATE - 1)) - 1
+val MIN_AMPLITUDE = MAX_AMPLITUDE * 10.0.pow(MIN_POWER / MULTIPLIER)
 
 fun getPowerFromAmplitude(amplitude: Number): Double {
-    return 20 * log10(max(amplitude.toDouble(), MIN_AMPLITUDE) / MAX_AMPLITUDE)
+    return MULTIPLIER * log10(max(amplitude.toDouble(), MIN_AMPLITUDE) / MAX_AMPLITUDE)
 }
 
 class RecorderModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -45,6 +50,9 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
 
         constants["EventType"] = EventType.values().map { it.name to it.value }.toMap()
 
+        constants["MIN_AMPLITUDE"] = 0
+        constants["MAX_AMPLITUDE"] = MAX_AMPLITUDE
+
         constants["MIN_POWER"] = getPowerFromAmplitude(MIN_AMPLITUDE)
         constants["MAX_POWER"] = getPowerFromAmplitude(MAX_AMPLITUDE)
 
@@ -57,7 +65,12 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
 
     @ReactMethod
     fun getState(promise: Promise) {
-        promise.resolve((state.value))
+        promise.resolve(state.value)
+    }
+
+    @ReactMethod
+    fun getPeakAmplitude(promise: Promise) {
+        promise.resolve(recorder?.maxAmplitude ?: 0)
     }
 
     @ReactMethod

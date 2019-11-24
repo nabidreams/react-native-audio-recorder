@@ -16,14 +16,23 @@ const styles = StyleSheet.create({
   },
   levelText: {
     textAlign: 'right',
+    fontFamily: 'monospace',
   },
-  levelBar: {
+  amplitudeLevelBar: {
     position: 'absolute',
     right: 0,
     bottom: 0,
     left: 0,
 
-    backgroundColor: 'red',
+    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+  },
+  powerLevelBar: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    left: 0,
+
+    backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
 });
 
@@ -67,20 +76,33 @@ export default function App() {
     return () => subscription.remove();
   }, []);
 
-  const [level, setLevel] = React.useState(recorder.MIN_POWER);
-  const levelBarHeight =
-    (100 * (level - recorder.MIN_POWER)) /
+  React.useEffect(() => {
+    return () => recorder.stop();
+  }, []);
+
+  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
+    recorder.MIN_AMPLITUDE,
+  );
+  const amplitudeLevelBarHeight =
+    (100 * (amplitudeLevel - recorder.MIN_AMPLITUDE)) /
+    (recorder.MAX_AMPLITUDE - recorder.MIN_AMPLITUDE);
+
+  const [powerLevel, setPowerLevel] = React.useState(recorder.MIN_POWER);
+  const powerLevelBarHeight =
+    (100 * (powerLevel - recorder.MIN_POWER)) /
     (recorder.MAX_POWER - recorder.MIN_POWER);
 
   React.useEffect(
     function handleRecordingLevelChange() {
       async function updateLevel() {
         if ((await recorder.getState()) !== recorder.State.STARTED) {
-          setLevel(recorder.MIN_POWER);
+          setAmplitudeLevel(recorder.MIN_AMPLITUDE);
+          setPowerLevel(recorder.MIN_POWER);
           return;
         }
 
-        setLevel(await recorder.getPeakPower());
+        setAmplitudeLevel(await recorder.getPeakAmplitude());
+        setPowerLevel(await recorder.getPeakPower());
 
         requestAnimationFrame(updateLevel);
       }
@@ -145,8 +167,15 @@ export default function App() {
     <View style={styles.container}>
       <View
         style={{
-          ...styles.levelBar,
-          height: `${levelBarHeight}%`,
+          ...styles.amplitudeLevelBar,
+          height: `${amplitudeLevelBarHeight}%`,
+        }}
+      />
+
+      <View
+        style={{
+          ...styles.powerLevelBar,
+          height: `${powerLevelBarHeight}%`,
         }}
       />
 
@@ -166,7 +195,9 @@ export default function App() {
           onPress={toggleRecording}
           disabled={!recordAudioPermissionGranted || !recorderState}
         />
-        <Text style={styles.levelText}>{level.toFixed(3)}dB</Text>
+        <Text style={styles.levelText}>Level </Text>
+        <Text style={styles.levelText}>{amplitudeLevel.toFixed(3)} </Text>
+        <Text style={styles.levelText}>{powerLevel.toFixed(3)} dB</Text>
       </View>
 
       <Button
