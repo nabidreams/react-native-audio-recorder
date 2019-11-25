@@ -52,6 +52,7 @@ require('sync-directory')(sourceDir, targetDir, {
   watch: program.watch,
   type: 'copy',
   exclude: [
+    ...parse(fs.readFileSync(path.join(sourceDir, '.gitignore'))),
     '.npmignore',
     ...defaultNpmIgnoredPaths,
     ...parse(fs.readFileSync(path.join(sourceDir, '.npmignore'))),
