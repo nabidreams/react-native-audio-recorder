@@ -5,6 +5,7 @@ import {
   View,
   Button,
   Text,
+  InteractionManager,
 } from 'react-native';
 import { AudioRecorder, AudioPlayer } from '@nabidreams/react-native-audio';
 
@@ -132,10 +133,16 @@ export default function App() {
         setRecordingAmplitudeLevel(await AudioRecorder.getPeakAmplitude());
         setRecordingPowerLevel(await AudioRecorder.getPeakPower());
 
-        requestAnimationFrame(updateLevel);
+        InteractionManager.runAfterInteractions({
+          name: 'updateLevel',
+          gen: () => updateLevel(),
+        });
       }
 
-      updateLevel();
+      InteractionManager.runAfterInteractions({
+        name: 'updateLevel',
+        gen: () => updateLevel(),
+      });
     },
     [recorderState],
   );
@@ -191,10 +198,16 @@ export default function App() {
         setPlayerAmplitudeLevel(await AudioPlayer.getRmsAmplitude());
         setPlayerPowerLevel(await AudioPlayer.getRmsPower());
 
-        requestAnimationFrame(updateLevel);
+        InteractionManager.runAfterInteractions({
+          name: 'updateLevel',
+          gen: () => updateLevel(),
+        });
       }
 
-      updateLevel();
+      InteractionManager.runAfterInteractions({
+        name: 'updateLevel',
+        gen: () => updateLevel(),
+      });
     },
     [playerState],
   );
