@@ -28,14 +28,14 @@ jobs:
       - name: Cache (node_modules)
         uses: actions/cache@v1
         with:
-          path: 'node_modules'
+          path: node_modules
           key: ${{ runner.OS }}-node_modules-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.OS }}-node_modules-
 
       - name: Cache (example/node_modules)
         uses: actions/cache@v1
         with:
-          path: 'example/node_modules'
+          path: example/node_modules
           key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
           restore-keys: ${{ runner.OS }}-example/node_modules-
 
@@ -54,24 +54,24 @@ jobs:
           restore-keys: ${{ runner.os }}-~/.gradle/caches-
 
       - name: Install Dependencies (Node)
-        working-directory: ./example
+        working-directory: example
         run: |
-          rm -rf ./node_modules/@nabidreams/react-native-audio
+          rm -rf node_modules/@nabidreams/react-native-audio
           yarn
 
       - name: Install Dependencies (Ruby)
-        working-directory: ./example/android
+        working-directory: example/android
         run: |
           gem install bundler
           bundle install
 
       - name: Test
-        working-directory: ./example/android
+        working-directory: example/android
         run: bundle exec fastlane test
 
       - name: Deploy Beta
         if: github.ref == 'refs/heads/master'
-        working-directory: ./example/android
+        working-directory: example/android
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
@@ -82,3 +82,64 @@ jobs:
           export VERSION_NAME=`git rev-parse --short HEAD`
           export VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"`
           bundle exec fastlane beta
+
+  ios:
+    name: iOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Cache (node_modules)
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-node_modules-
+
+      - name: Cache (example/node_modules)
+        uses: actions/cache@v1
+        with:
+          path: example/node_modules
+          key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-example/node_modules-
+
+      - name: Cache (example/ios/vendor/bundle)
+        uses: actions/cache@v1
+        with:
+          path: example/ios/vendor/bundle
+          key: ${{ runner.os }}-example/ios/vendor/bundle-${{ hashFiles('example/ios/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-example/ios/vendor/bundle-
+
+      - name: Cache (example/ios/Pods)
+        uses: actions/cache@v1
+        with:
+          path: example/ios/Pods
+          key: ${{ runner.os }}-example/ios/Pods-${{ hashFiles('example/ios/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-example/ios/Pods-
+
+      - name: Install Dependencies (Node)
+        working-directory: example
+        run: |
+          rm -rf node_modules/@nabidreams/react-native-audio
+          yarn
+
+      - name: Install Dependencies (Ruby)
+        working-directory: example/ios
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Test
+        working-directory: example/ios
+        run: bundle exec fastlane test
