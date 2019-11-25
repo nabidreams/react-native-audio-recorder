@@ -6,6 +6,8 @@ import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
 import kotlin.math.absoluteValue
+import kotlin.math.min
+import kotlin.math.pow
 
 class PlayerModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     override fun getName(): String {
@@ -29,14 +31,21 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
         const val BIT_RATE = 8
 
         const val MIN_LEVEL = 0
-        const val MAX_LEVEL =  1 shl (BIT_RATE - 1)
+        const val MAX_LEVEL = 1 shl (BIT_RATE - 1)
     }
 
-    private var level: Double = 0.0
+    private var level: Double = MIN_LEVEL.toDouble()
 
     @ReactMethod
     fun getLevel(promise: Promise) {
-        promise.resolve(level)
+        visualizer?.apply {
+            val bytes = ByteArray(captureSize)
+            getWaveForm(bytes)
+
+            val level = bytes.map { min(it.toInt() + MAX_LEVEL, MAX_LEVEL) }.average()
+
+            promise.resolve(level)
+        } ?: promise.resolve(MIN_LEVEL)
     }
 
     enum class State(val value: String) {
@@ -77,17 +86,6 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
 
             visualizer = Visualizer(audioSessionId).apply {
                 captureSize = Visualizer.getCaptureSizeRange()[1]
-
-                setDataCaptureListener(object : Visualizer.OnDataCaptureListener {
-                    override fun onWaveFormDataCapture(visualizer: Visualizer?, bytes: ByteArray?, samplingRate: Int) {
-                        level = bytes?.map { it.toInt().absoluteValue }?.average()
-                                ?: 0.0
-                    }
-
-                    override fun onFftDataCapture(visualizer: Visualizer?, bytes: ByteArray?, samplingRate: Int) {
-                    }
-                }, Visualizer.getMaxCaptureRate() / 2, true, false)
-
                 enabled = true
             }
 
