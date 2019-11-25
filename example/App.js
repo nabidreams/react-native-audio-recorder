@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   },
   levelText: {
     textAlign: 'right',
-    fontFamily: 'monospace',
   },
   recordingAmplitudeLevelBar: {
     position: 'absolute',
