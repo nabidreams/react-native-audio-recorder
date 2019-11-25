@@ -15,7 +15,7 @@ function createRecorder() {
   };
 }
 
-export const recorder = createRecorder();
+export const AudioRecorder = createRecorder();
 
 function createPlayer() {
   const eventEmitter = new NativeEventEmitter(Player);
@@ -30,4 +30,4 @@ function createPlayer() {
   };
 }
 
-export const player = createPlayer();
+export const AudioPlayer = createPlayer();

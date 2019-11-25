@@ -6,7 +6,7 @@ import {
   Button,
   Text,
 } from 'react-native';
-import { recorder, player } from '@nabidreams/react-native-audio';
+import { AudioRecorder, AudioPlayer } from '@nabidreams/react-native-audio';
 
 const styles = StyleSheet.create({
   container: {
@@ -86,11 +86,11 @@ export default function App() {
 
   React.useEffect(function listenRecorderStateChange() {
     (async () => {
-      setRecorderState(await recorder.getState());
+      setRecorderState(await AudioRecorder.getState());
     })();
 
-    const subscription = recorder.addListener(
-      recorder.EventType.STATE_CHANGE,
+    const subscription = AudioRecorder.addListener(
+      AudioRecorder.EventType.STATE_CHANGE,
       ({ state }) => {
         setRecorderState(state);
       },
@@ -101,36 +101,36 @@ export default function App() {
 
   React.useEffect(() => {
     return () => {
-      recorder.stop();
-      player.stop();
+      AudioRecorder.stop();
+      AudioPlayer.stop();
     };
   }, []);
 
   const [recordingAmplitudeLevel, setRecordingAmplitudeLevel] = React.useState(
-    recorder.MIN_AMPLITUDE,
+    AudioRecorder.MIN_AMPLITUDE,
   );
   const recordingAmplitudeLevelBarHeight =
-    (100 * (recordingAmplitudeLevel - recorder.MIN_AMPLITUDE)) /
-    (recorder.MAX_AMPLITUDE - recorder.MIN_AMPLITUDE);
+    (100 * (recordingAmplitudeLevel - AudioRecorder.MIN_AMPLITUDE)) /
+    (AudioRecorder.MAX_AMPLITUDE - AudioRecorder.MIN_AMPLITUDE);
 
   const [recordingPowerLevel, setRecordingPowerLevel] = React.useState(
-    recorder.MIN_POWER,
+    AudioRecorder.MIN_POWER,
   );
   const recordingPowerLevelBarHeight =
-    (100 * (recordingPowerLevel - recorder.MIN_POWER)) /
-    (recorder.MAX_POWER - recorder.MIN_POWER);
+    (100 * (recordingPowerLevel - AudioRecorder.MIN_POWER)) /
+    (AudioRecorder.MAX_POWER - AudioRecorder.MIN_POWER);
 
   React.useEffect(
     function handleRecordingLevelChange() {
       async function updateLevel() {
-        if ((await recorder.getState()) !== recorder.State.STARTED) {
-          setRecordingAmplitudeLevel(recorder.MIN_AMPLITUDE);
-          setRecordingPowerLevel(recorder.MIN_POWER);
+        if ((await AudioRecorder.getState()) !== AudioRecorder.State.STARTED) {
+          setRecordingAmplitudeLevel(AudioRecorder.MIN_AMPLITUDE);
+          setRecordingPowerLevel(AudioRecorder.MIN_POWER);
           return;
         }
 
-        setRecordingAmplitudeLevel(await recorder.getPeakAmplitude());
-        setRecordingPowerLevel(await recorder.getPeakPower());
+        setRecordingAmplitudeLevel(await AudioRecorder.getPeakAmplitude());
+        setRecordingPowerLevel(await AudioRecorder.getPeakPower());
 
         requestAnimationFrame(updateLevel);
       }
@@ -144,11 +144,11 @@ export default function App() {
 
   React.useEffect(function listenPlayerStateChange() {
     (async () => {
-      setPlayerState(await player.getState());
+      setPlayerState(await AudioPlayer.getState());
     })();
 
-    const subscription = player.addListener(
-      player.EventType.STATE_CHANGE,
+    const subscription = AudioPlayer.addListener(
+      AudioPlayer.EventType.STATE_CHANGE,
       ({ state }) => {
         setPlayerState(state);
       },
@@ -158,20 +158,20 @@ export default function App() {
   }, []);
 
   const [playingAmplitudeLevel, setPlayerAmplitudeLevel] = React.useState(
-    player.MIN_AMPLITUDE,
+    AudioPlayer.MIN_AMPLITUDE,
   );
   const playingAmplitudeLevelBarHeight =
-    (100 * (playingAmplitudeLevel - player.MIN_AMPLITUDE)) /
-    (player.MAX_AMPLITUDE - player.MIN_AMPLITUDE);
+    (100 * (playingAmplitudeLevel - AudioPlayer.MIN_AMPLITUDE)) /
+    (AudioPlayer.MAX_AMPLITUDE - AudioPlayer.MIN_AMPLITUDE);
 
   const [playingPowerLevel, setPlayerPowerLevel] = React.useState(
-    player.MIN_AMPLITUDE,
+    AudioPlayer.MIN_AMPLITUDE,
   );
   const playingPowerLevelBarHeight =
-    (100 * (playingPowerLevel - player.MIN_POWER)) /
-    (player.MAX_POWER - player.MIN_POWER);
+    (100 * (playingPowerLevel - AudioPlayer.MIN_POWER)) /
+    (AudioPlayer.MAX_POWER - AudioPlayer.MIN_POWER);
 
-  const [max, setMax] = React.useState(player.MIN_AMPLITUDE);
+  const [max, setMax] = React.useState(AudioPlayer.MIN_AMPLITUDE);
 
   React.useEffect(() => {
     if (playingAmplitudeLevel > max) {
@@ -182,14 +182,14 @@ export default function App() {
   React.useEffect(
     function handlePlayingLevelChange() {
       async function updateLevel() {
-        if ((await player.getState()) !== player.State.STARTED) {
-          setPlayerAmplitudeLevel(player.MIN_AMPLITUDE);
-          setPlayerPowerLevel(player.MIN_POWER);
+        if ((await AudioPlayer.getState()) !== AudioPlayer.State.STARTED) {
+          setPlayerAmplitudeLevel(AudioPlayer.MIN_AMPLITUDE);
+          setPlayerPowerLevel(AudioPlayer.MIN_POWER);
           return;
         }
 
-        setPlayerAmplitudeLevel(await player.getRmsAmplitude());
-        setPlayerPowerLevel(await player.getRmsPower());
+        setPlayerAmplitudeLevel(await AudioPlayer.getRmsAmplitude());
+        setPlayerPowerLevel(await AudioPlayer.getRmsPower());
 
         requestAnimationFrame(updateLevel);
       }
@@ -202,11 +202,11 @@ export default function App() {
   async function toggleRecording() {
     try {
       switch (recorderState) {
-        case recorder.State.STARTED:
-          await recorder.stop();
+        case AudioRecorder.State.STARTED:
+          await AudioRecorder.stop();
           return;
-        case recorder.State.STOPPED:
-          await recorder.start();
+        case AudioRecorder.State.STOPPED:
+          await AudioRecorder.start();
           return;
         default:
           return;
@@ -219,11 +219,11 @@ export default function App() {
   async function togglePlaying() {
     try {
       switch (playerState) {
-        case player.State.STARTED:
-          await player.stop();
+        case AudioPlayer.State.STARTED:
+          await AudioPlayer.stop();
           return;
-        case player.State.STOPPED:
-          await player.start();
+        case AudioPlayer.State.STOPPED:
+          await AudioPlayer.start();
           return;
         default:
           return;
@@ -278,7 +278,7 @@ export default function App() {
       <View style={styles.section}>
         <Button
           title={
-            recorderState !== recorder.State.STARTED
+            recorderState !== AudioRecorder.State.STARTED
               ? 'Start Recording'
               : 'Stop Recording'
           }
@@ -302,7 +302,7 @@ export default function App() {
       <View style={styles.section}>
         <Button
           title={
-            playerState !== player.State.STARTED
+            playerState !== AudioPlayer.State.STARTED
               ? 'Start Playing'
               : 'Stop Playing'
           }
