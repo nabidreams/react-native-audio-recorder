@@ -5,8 +5,7 @@ import android.media.audiofx.Visualizer
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import java.io.IOException
-import kotlin.math.absoluteValue
-import kotlin.math.min
+import kotlin.math.log10
 import kotlin.math.pow
 
 class PlayerModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -21,8 +20,11 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
 
         constants["EventType"] = EventType.values().map { it.name to it.value }.toMap()
 
-        constants["MIN_LEVEL"] = MIN_LEVEL
-        constants["MAX_LEVEL"] = MAX_LEVEL
+        constants["MIN_AMPLITUDE"] = MIN_AMPLITUDE
+        constants["MAX_AMPLITUDE"] = MAX_AMPLITUDE
+
+        constants["MIN_POWER"] = getPowerFromAmplitude(MIN_AMPLITUDE)
+        constants["MAX_POWER"] = getPowerFromAmplitude(MAX_AMPLITUDE)
 
         return constants
     }
@@ -30,22 +32,32 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
     companion object {
         const val BIT_RATE = 8
 
-        const val MIN_LEVEL = 0
-        const val MAX_LEVEL = 1 shl (BIT_RATE - 1)
+        const val MIN_AMPLITUDE = 0
+        const val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
+
+        private fun getPowerFromAmplitude(amplitude: Number): Double {
+            return 20 * log10((amplitude.toDouble() + 1) / (MAX_AMPLITUDE + 1))
+        }
     }
 
-    private var level: Double = MIN_LEVEL.toDouble()
-
-    @ReactMethod
-    fun getLevel(promise: Promise) {
-        visualizer?.apply {
+    fun getRmsAmplitude(): Double {
+        return visualizer?.run {
             val bytes = ByteArray(captureSize)
             getWaveForm(bytes)
+            bytes.toUByteArray().map { (it.toDouble() - MAX_AMPLITUDE).pow(2) }.average().pow(0.5)
+        } ?: MIN_AMPLITUDE.toDouble()
+    }
 
-            val level = bytes.map { min(it.toInt() + MAX_LEVEL, MAX_LEVEL) }.average()
+    @ReactMethod
+    fun getRmsAmplitude(promise: Promise) {
+        promise.resolve(getRmsAmplitude())
+    }
 
-            promise.resolve(level)
-        } ?: promise.resolve(MIN_LEVEL)
+    @ReactMethod
+    fun getRmsPower(promise: Promise) {
+        val amplitude = getRmsAmplitude()
+        val power = getPowerFromAmplitude(amplitude)
+        promise.resolve(power)
     }
 
     enum class State(val value: String) {
@@ -85,7 +97,7 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
             }
 
             visualizer = Visualizer(audioSessionId).apply {
-                captureSize = Visualizer.getCaptureSizeRange()[1]
+                captureSize = Visualizer.getCaptureSizeRange()[0]
                 enabled = true
             }
 

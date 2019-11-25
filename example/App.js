@@ -12,35 +12,50 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
+  },
+  section: {
+    justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  levelTextContainer: {
+    alignSelf: 'stretch',
+    padding: 16,
   },
   levelText: {
     textAlign: 'right',
     fontFamily: 'monospace',
   },
-  amplitudeLevelBar: {
+  recordingAmplitudeLevelBar: {
     position: 'absolute',
-    right: 0,
+    right: '50%',
     bottom: 0,
     left: 0,
 
     backgroundColor: 'rgba(0, 0, 255, 0.5)',
   },
-  powerLevelBar: {
+  recordingPowerLevelBar: {
     position: 'absolute',
     right: 0,
     bottom: 0,
-    left: 0,
+    left: '50%',
 
     backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
-  playerLevelBar: {
+  playingAmplitudeLevelBar: {
     position: 'absolute',
-    right: 0,
+    right: '50%',
     bottom: 0,
     left: 0,
 
-    backgroundColor: 'rgba(0, 255, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+  },
+  playingPowerLevelBar: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    left: '50%',
+
+    backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
 });
 
@@ -91,29 +106,31 @@ export default function App() {
     };
   }, []);
 
-  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
+  const [recordingAmplitudeLevel, setRecordingAmplitudeLevel] = React.useState(
     recorder.MIN_AMPLITUDE,
   );
-  const amplitudeLevelBarHeight =
-    (100 * (amplitudeLevel - recorder.MIN_AMPLITUDE)) /
+  const recordingAmplitudeLevelBarHeight =
+    (100 * (recordingAmplitudeLevel - recorder.MIN_AMPLITUDE)) /
     (recorder.MAX_AMPLITUDE - recorder.MIN_AMPLITUDE);
 
-  const [powerLevel, setPowerLevel] = React.useState(recorder.MIN_POWER);
-  const powerLevelBarHeight =
-    (100 * (powerLevel - recorder.MIN_POWER)) /
+  const [recordingPowerLevel, setRecordingPowerLevel] = React.useState(
+    recorder.MIN_POWER,
+  );
+  const recordingPowerLevelBarHeight =
+    (100 * (recordingPowerLevel - recorder.MIN_POWER)) /
     (recorder.MAX_POWER - recorder.MIN_POWER);
 
   React.useEffect(
     function handleRecordingLevelChange() {
       async function updateLevel() {
         if ((await recorder.getState()) !== recorder.State.STARTED) {
-          setAmplitudeLevel(recorder.MIN_AMPLITUDE);
-          setPowerLevel(recorder.MIN_POWER);
+          setRecordingAmplitudeLevel(recorder.MIN_AMPLITUDE);
+          setRecordingPowerLevel(recorder.MIN_POWER);
           return;
         }
 
-        setAmplitudeLevel(await recorder.getPeakAmplitude());
-        setPowerLevel(await recorder.getPeakPower());
+        setRecordingAmplitudeLevel(await recorder.getPeakAmplitude());
+        setRecordingPowerLevel(await recorder.getPeakPower());
 
         requestAnimationFrame(updateLevel);
       }
@@ -140,20 +157,39 @@ export default function App() {
     return () => subscription.remove();
   }, []);
 
-  const [playerLevel, setPlayerLevel] = React.useState(player.MIN_LEVEL);
-  const playerLevelBarHeight =
-    (100 * (playerLevel - player.MIN_LEVEL)) /
-    (player.MAX_LEVEL - player.MIN_LEVEL);
+  const [playingAmplitudeLevel, setPlayerAmplitudeLevel] = React.useState(
+    player.MIN_AMPLITUDE,
+  );
+  const playingAmplitudeLevelBarHeight =
+    (100 * (playingAmplitudeLevel - player.MIN_AMPLITUDE)) /
+    (player.MAX_AMPLITUDE - player.MIN_AMPLITUDE);
+
+  const [playingPowerLevel, setPlayerPowerLevel] = React.useState(
+    player.MIN_AMPLITUDE,
+  );
+  const playingPowerLevelBarHeight =
+    (100 * (playingPowerLevel - player.MIN_POWER)) /
+    (player.MAX_POWER - player.MIN_POWER);
+
+  const [max, setMax] = React.useState(player.MIN_AMPLITUDE);
+
+  React.useEffect(() => {
+    if (playingAmplitudeLevel > max) {
+      setMax(playingAmplitudeLevel);
+    }
+  }, [playingAmplitudeLevel]);
 
   React.useEffect(
     function handlePlayingLevelChange() {
       async function updateLevel() {
         if ((await player.getState()) !== player.State.STARTED) {
-          setPlayerLevel(player.MIN_LEVEL);
+          setPlayerAmplitudeLevel(player.MIN_AMPLITUDE);
+          setPlayerPowerLevel(player.MIN_POWER);
           return;
         }
 
-        setPlayerLevel(await player.getLevel());
+        setPlayerAmplitudeLevel(await player.getRmsAmplitude());
+        setPlayerPowerLevel(await player.getRmsPower());
 
         requestAnimationFrame(updateLevel);
       }
@@ -201,32 +237,45 @@ export default function App() {
     <View style={styles.container}>
       <View
         style={{
-          ...styles.amplitudeLevelBar,
-          height: `${amplitudeLevelBarHeight}%`,
+          ...styles.recordingAmplitudeLevelBar,
+          height: `${recordingAmplitudeLevelBarHeight}%`,
         }}
       />
 
       <View
         style={{
-          ...styles.powerLevelBar,
-          height: `${powerLevelBarHeight}%`,
+          ...styles.recordingPowerLevelBar,
+          height: `${recordingPowerLevelBarHeight}%`,
         }}
       />
 
       <View
         style={{
-          ...styles.playerLevelBar,
-          height: `${playerLevelBarHeight}%`,
+          ...styles.playingAmplitudeLevelBar,
+          height: `${playingAmplitudeLevelBarHeight}%`,
         }}
       />
 
-      <Button
-        title="Request Record Audio Permission"
-        onPress={requestRecordAudioPermission}
-        disabled={recordAudioPermissionGranted}
+      <View
+        style={{
+          ...styles.playingPowerLevelBar,
+          height: `${playingPowerLevelBarHeight}%`,
+        }}
       />
 
-      <View>
+      <View style={styles.section}>
+        <Button
+          title={
+            recordAudioPermissionGranted
+              ? 'Record Audio Permission Granted!'
+              : 'Request Record Audio Permission'
+          }
+          onPress={requestRecordAudioPermission}
+          disabled={recordAudioPermissionGranted}
+        />
+      </View>
+
+      <View style={styles.section}>
         <Button
           title={
             recorderState !== recorder.State.STARTED
@@ -236,12 +285,21 @@ export default function App() {
           onPress={toggleRecording}
           disabled={!recordAudioPermissionGranted || !recorderState}
         />
-        <Text style={styles.levelText}>Level </Text>
-        <Text style={styles.levelText}>{amplitudeLevel.toFixed(3)} </Text>
-        <Text style={styles.levelText}>{powerLevel.toFixed(3)} dB</Text>
+
+        <View style={styles.levelTextContainer}>
+          <Text style={styles.levelText}>Peak Level</Text>
+          <Text style={styles.levelText}>
+            {recordingAmplitudeLevel.toFixed(3)}
+            {' (Amplitude)'}
+          </Text>
+          <Text style={styles.levelText}>
+            {recordingPowerLevel.toFixed(3)}
+            {'dB   (Power)'}
+          </Text>
+        </View>
       </View>
 
-      <View>
+      <View style={styles.section}>
         <Button
           title={
             playerState !== player.State.STARTED
@@ -251,8 +309,17 @@ export default function App() {
           onPress={togglePlaying}
           disabled={!recordAudioPermissionGranted || !playerState}
         />
-        <Text style={styles.levelText}>Level</Text>
-        <Text style={styles.levelText}>{playerLevel.toFixed(3)}</Text>
+
+        <View style={styles.levelTextContainer}>
+          <Text style={styles.levelText}>RMS Level</Text>
+          <Text style={styles.levelText}>
+            {playingAmplitudeLevel.toFixed(3)} (Amplitude)
+          </Text>
+          <Text style={styles.levelText}>
+            {playingPowerLevel.toFixed(3)}
+            {'dB   (Power)'}
+          </Text>
+        </View>
       </View>
     </View>
   );

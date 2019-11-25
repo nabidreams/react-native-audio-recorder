@@ -33,10 +33,8 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
         const val MIN_AMPLITUDE = 0
         const val MAX_AMPLITUDE = 1 shl (BIT_RATE - 1)
 
-        const val EPSILON = 1
-
         private fun getPowerFromAmplitude(amplitude: Number): Double {
-            return 20 * log10((amplitude.toDouble() + EPSILON) / (MAX_AMPLITUDE + EPSILON))
+            return 20 * log10((amplitude.toDouble() + 1) / (MAX_AMPLITUDE + 1))
         }
     }
 
