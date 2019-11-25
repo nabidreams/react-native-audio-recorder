@@ -140,7 +140,7 @@ export default function App() {
     return () => subscription.remove();
   }, []);
 
-  const [playerLevel, setPlayerLevel] = React.useState(0);
+  const [playerLevel, setPlayerLevel] = React.useState(player.MIN_LEVEL);
   const playerLevelBarHeight =
     (100 * (playerLevel - player.MIN_LEVEL)) /
     (player.MAX_LEVEL - player.MIN_LEVEL);
@@ -149,7 +149,7 @@ export default function App() {
     function handlePlayingLevelChange() {
       async function updateLevel() {
         if ((await player.getState()) !== player.State.STARTED) {
-          setPlayerLevel(0);
+          setPlayerLevel(player.MIN_LEVEL);
           return;
         }
 
