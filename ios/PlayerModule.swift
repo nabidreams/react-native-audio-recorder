@@ -1,7 +1,7 @@
-@objc(Recorder)
-class RecorderModule: RCTEventEmitter {
+@objc(Player)
+class PlayerModule: RCTEventEmitter {
   enum EventType: String {
-    case stateChange = "recorderStateChange"
+    case stateChange = "playerStateChange"
   }
   
   override static func requiresMainQueueSetup() -> Bool {
@@ -11,47 +11,47 @@ class RecorderModule: RCTEventEmitter {
   override func constantsToExport() -> [AnyHashable: Any]? {
     return [
       "State": [
-        "STARTED": Recorder.State.started.rawValue,
-        "STOPPED": Recorder.State.stopped.rawValue,
+        "STARTED": Player.State.started.rawValue,
+        "STOPPED": Player.State.stopped.rawValue,
       ],
       
       "EventType": [
-        "STATE_CHANGE": EventType.stateChange.rawValue,
+        "STATE_CHANGE": EventType.stateChange.rawValue
       ],
       
-      "MIN_LEVEL": Recorder.minPower,
-      "MAX_LEVEL": Recorder.maxPower,
+      "MIN_LEVEL": Player.minPower,
+      "MAX_LEVEL": Player.maxPower,
     ]
   }
   
   override func supportedEvents() -> [String]! {
     return [
-      EventType.stateChange.rawValue,
+      EventType.stateChange.rawValue
     ]
   }
   
   override init() {
     super.init()
     
-    recorder.stateChangeListener = { state in
+    player.stateChangeListener = { state in
       self.sendEvent(withName: EventType.stateChange.rawValue, body: ["state": state.rawValue])
     }
   }
   
   @objc
   func getLevel(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(recorder.averagePower)
+    resolve(player.averagePower)
   }
   
   @objc
   func getState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(recorder.state.rawValue)
+    resolve(player.state.rawValue)
   }
   
   @objc
   func start(_ filePath: String, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     do {
-      try recorder.start(filePath)
+      try player.start(filePath)
       resolve(nil)
     } catch {
       reject("Error", error.localizedDescription, error)
@@ -60,13 +60,9 @@ class RecorderModule: RCTEventEmitter {
   
   @objc
   func stop(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    do {
-      try recorder.stop()
-      resolve(nil)
-    } catch {
-      reject("Error", error.localizedDescription, error)
-    }
+    player.stop()
+    resolve(nil)
   }
   
-  private let recorder: Recorder! = Recorder()
+  private let player: Player! = Player()
 }

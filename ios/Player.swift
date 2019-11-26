@@ -1,41 +1,58 @@
-@objc(Player)
-class Player: RCTEventEmitter {
-  enum EventType: String {
-    case stateChange = "playerStateChange"
-  }
 
-  override static func requiresMainQueueSetup() -> Bool {
-    return false
-  }
+import AVFoundation
 
-  override func constantsToExport() -> [AnyHashable: Any]? {
-    return [
-      "State": [],
-
-      "EventType": [
-        "STATE_CHANGE": EventType.stateChange.rawValue
-      ],
-
-      "MIN_LEVEL": 0,
-      "MAX_LEVEL": 0,
-    ]
+class Player: NSObject {
+  enum State: String {
+    case started = "started"
+    case stopped = "stopped"
   }
   
-  override func supportedEvents() -> [String]! {
-    return [
-      EventType.stateChange.rawValue
-    ]
+  static let minPower = -160
+  static let maxPower = 0
+  
+  var averagePower: Float {
+    player?.updateMeters()
+    return player?.averagePower(forChannel: 0) ?? -160
   }
   
-  @objc
-  func getLevel(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
+  var peakPower: Float {
+    player?.updateMeters()
+    return player?.peakPower(forChannel: 0) ?? -160
+  }
   
-  @objc
-  func getState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve("") }
+  var state: State {
+    player?.isPlaying ?? false ? .started : .stopped
+  }
   
-  @objc
-  func start(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
+  var stateChangeListener: ((_ state: State) -> Void)? = nil
   
-  @objc
-  func stop(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
+  func start(_ filePath: String) throws {
+    do {
+      player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
+      player?.isMeteringEnabled = true
+      player?.delegate = self
+      player?.prepareToPlay()
+      player?.play()
+      
+      stateChangeListener?(state)
+    } catch {
+      stop()
+      throw error
+    }
+  }
+  
+  func stop() {
+    player?.stop()
+    player = nil
+    
+    stateChangeListener?(state)
+  }
+  
+  private var player: AVAudioPlayer? = nil
+}
+
+extension Player: AVAudioPlayerDelegate {
+  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    stop()
+  }
 }
