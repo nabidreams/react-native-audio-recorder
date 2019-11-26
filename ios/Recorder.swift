@@ -1,47 +1,65 @@
-@objc(Recorder)
-class Recorder: RCTEventEmitter {
-  enum EventType: String {
-    case stateChange = "recorderStateChange"
+import AVFoundation
+
+class Recorder: NSObject {
+  enum State: String {
+    case started = "started"
+    case stopped = "stopped"
   }
-
-  override static func requiresMainQueueSetup() -> Bool {
-    return false
+  
+  var state: State {
+    get {
+      return recorder?.isRecording ?? false ? .started : .stopped
+    }
   }
-
-  override func constantsToExport() -> [AnyHashable: Any]? {
-    return [
-      "State": [],
-
-      "EventType": [
-        "STATE_CHANGE": EventType.stateChange.rawValue
-      ],
-
-      "MIN_AMPLITUDE": 0,
-      "MAX_AMPLITUDE": 0,
+  
+  var stateChangeListener: ((_ state: State) -> Void)? = nil
+  
+  func start(_ filePath: String) throws {
+    do {
+      let session: AVAudioSession! = AVAudioSession.sharedInstance()
+      try session.setCategory(.playAndRecord, mode: .default)
+      try session.setActive(true)
       
-      "MIN_POWER": 0,
-      "MAX_POWER": 0,
-    ]
+      let settings = [
+        AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+        AVSampleRateKey: 44100,
+        AVNumberOfChannelsKey: 1,
+        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+      ]
+      
+      recorder = try AVAudioRecorder(url: URL(fileURLWithPath: filePath), settings: settings)
+      recorder?.delegate = self
+      recorder?.prepareToRecord()
+      recorder?.record()
+      
+      stateChangeListener?(state)
+    } catch {
+      try stop()
+      throw error
+    }
   }
+  
+  func stop() throws {
+    recorder?.stop()
+    recorder = nil
+    
+    let session: AVAudioSession! = AVAudioSession.sharedInstance()
+    try session.setActive(false)
 
-  override func supportedEvents() -> [String]! {
-    return [
-      EventType.stateChange.rawValue
-    ]
+    stateChangeListener?(state)
   }
   
-  @objc
-  func getPeakAmplitude(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
-  
-  @objc
-  func getPeakPower(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
-  
-  @objc
-  func getState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve("") }
-  
-  @objc
-  func start(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
-  
-  @objc
-  func stop(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
+  private var recorder: AVAudioRecorder?
+}
+
+extension Recorder: AVAudioRecorderDelegate {
+  func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+    if !flag {
+      do {
+        try stop()
+      } catch {
+        print(error)
+      }
+    }
+  }
 }

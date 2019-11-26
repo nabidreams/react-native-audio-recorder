@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10C01477238BBC740075B323 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C01476238BBC740075B323 /* Recorder.swift */; };
+		10C01477238BBC740075B323 /* RecorderModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C01476238BBC740075B323 /* RecorderModule.swift */; };
 		10C01479238BBD550075B323 /* RecorderBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C01478238BBD550075B323 /* RecorderBridge.m */; };
 		10C0147C238BC0B80075B323 /* PlayerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C0147A238BC0B80075B323 /* PlayerBridge.m */; };
 		10C0147D238BC0B80075B323 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0147B238BC0B80075B323 /* Player.swift */; };
+		10F00C7D238DA4CF00D27D6A /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00C7C238DA4CF00D27D6A /* Recorder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,10 +28,11 @@
 
 /* Begin PBXFileReference section */
 		102F584E2374BF9800AA53DB /* Audio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Audio-Bridging-Header.h"; sourceTree = "<group>"; };
-		10C01476238BBC740075B323 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		10C01476238BBC740075B323 /* RecorderModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderModule.swift; sourceTree = "<group>"; };
 		10C01478238BBD550075B323 /* RecorderBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecorderBridge.m; sourceTree = "<group>"; };
 		10C0147A238BC0B80075B323 /* PlayerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerBridge.m; sourceTree = "<group>"; };
 		10C0147B238BC0B80075B323 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		10F00C7C238DA4CF00D27D6A /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libAudio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudio.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,8 +58,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				10F00C7C238DA4CF00D27D6A /* Recorder.swift */,
 				10C01478238BBD550075B323 /* RecorderBridge.m */,
-				10C01476238BBC740075B323 /* Recorder.swift */,
+				10C01476238BBC740075B323 /* RecorderModule.swift */,
 				10C0147A238BC0B80075B323 /* PlayerBridge.m */,
 				10C0147B238BC0B80075B323 /* Player.swift */,
 				102F584E2374BF9800AA53DB /* Audio-Bridging-Header.h */,
@@ -123,8 +126,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F00C7D238DA4CF00D27D6A /* Recorder.swift in Sources */,
 				10C01479238BBD550075B323 /* RecorderBridge.m in Sources */,
-				10C01477238BBC740075B323 /* Recorder.swift in Sources */,
+				10C01477238BBC740075B323 /* RecorderModule.swift in Sources */,
 				10C0147C238BC0B80075B323 /* PlayerBridge.m in Sources */,
 				10C0147D238BC0B80075B323 /* Player.swift in Sources */,
 			);
