@@ -1,5 +1,6 @@
 import React from 'react';
 import { Animated, View } from 'react-native';
+
 import useAnimatedValue from './useAnimatedValue';
 
 const styles = {
@@ -17,14 +18,12 @@ export default function LevelBar({
   minLevel,
   maxLevel,
   level,
-  animationDuration = 1000 / 20,
   ...props
 }) {
   const height = useAnimatedValue({
     inputRange: [minLevel, maxLevel],
     outputRange: ['0%', '100%'],
     value: level,
-    duration: animationDuration,
   });
 
   return (

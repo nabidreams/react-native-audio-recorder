@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Player as AudioPlayer } from '@nabidreams/react-native-audio';
 import LevelBar from './LevelBar';
+import config from './config';
 
 const styles = StyleSheet.create({
   root: {
@@ -98,7 +99,7 @@ export default function PlayerExample({
   async function togglePlaying() {
     try {
       if (state !== AudioPlayer.State.STARTED) {
-        await AudioPlayer.start();
+        await AudioPlayer.start(config.filePath);
       } else {
         await AudioPlayer.stop();
       }

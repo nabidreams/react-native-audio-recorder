@@ -7,7 +7,9 @@ import {
   InteractionManager,
 } from 'react-native';
 import { Recorder as AudioRecorder } from '@nabidreams/react-native-audio';
+
 import LevelBar from './LevelBar';
+import config from './config';
 
 const styles = StyleSheet.create({
   root: {
@@ -98,7 +100,7 @@ export default function RecorderExample({
   async function toggleRecording() {
     try {
       if (state !== AudioRecorder.State.STARTED) {
-        await AudioRecorder.start();
+        await AudioRecorder.start(config.filePath);
       } else {
         await AudioRecorder.stop();
       }

@@ -40,7 +40,7 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
     }
 
     @ReactMethod
-    fun start(promise: Promise) {
+    fun start(filePath: String, promise: Promise) {
         try {
             player.start(filePath)
             promise.resolve(null)
@@ -54,8 +54,6 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
         player.stop()
         promise.resolve(null)
     }
-
-    private val filePath: String = "${reactContext.externalCacheDir.absolutePath}/sample.3gp"
 
     private val player: Player = Player().apply {
         stateChangeListener = { state ->

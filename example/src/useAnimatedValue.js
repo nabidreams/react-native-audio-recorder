@@ -1,7 +1,14 @@
 import React from 'react';
 import { Animated } from 'react-native';
 
-export default ({ inputRange, outputRange, value, duration }) => {
+import config from './config';
+
+export default ({
+  inputRange,
+  outputRange,
+  value,
+  duration = config.animationDuration,
+}) => {
   const [animatedValue] = React.useState(new Animated.Value(value));
 
   React.useEffect(() => {
