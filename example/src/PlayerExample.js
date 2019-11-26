@@ -1,14 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Button,
-  Text,
-  InteractionManager,
-} from 'react-native';
-import { Player as AudioPlayer } from '@nabidreams/react-native-audio';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import { Player } from '@nabidreams/react-native-audio';
+
+import usePlayer from './usePlayer';
 import LevelBar from './LevelBar';
-import config from './config';
 
 const styles = StyleSheet.create({
   root: {
@@ -47,72 +42,7 @@ export default function PlayerExample({
   disabled = false,
   ...props
 }) {
-  const [state, setState] = React.useState();
-
-  React.useEffect(function listenStateChange() {
-    (async () => {
-      setState(await AudioPlayer.getState());
-    })();
-
-    const subscription = AudioPlayer.addListener(
-      AudioPlayer.EventType.STATE_CHANGE,
-      ({ state }) => {
-        setState(state);
-      },
-    );
-
-    return () => subscription.remove();
-  }, []);
-
-  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
-    AudioPlayer.MIN_AMPLITUDE,
-  );
-
-  const [powerLevel, setPowerLevel] = React.useState(AudioPlayer.MIN_AMPLITUDE);
-
-  React.useEffect(
-    function handleLevelChange() {
-      async function updateLevel() {
-        if ((await AudioPlayer.getState()) !== AudioPlayer.State.STARTED) {
-          setAmplitudeLevel(AudioPlayer.MIN_AMPLITUDE);
-          setPowerLevel(AudioPlayer.MIN_POWER);
-          return;
-        }
-
-        setAmplitudeLevel(await AudioPlayer.getRmsAmplitude());
-        setPowerLevel(await AudioPlayer.getRmsPower());
-
-        InteractionManager.runAfterInteractions({
-          name: 'updateLevel',
-          gen: () => updateLevel(),
-        });
-      }
-
-      InteractionManager.runAfterInteractions({
-        name: 'updateLevel',
-        gen: () => updateLevel(),
-      });
-    },
-    [state],
-  );
-
-  async function togglePlaying() {
-    try {
-      if (state !== AudioPlayer.State.STARTED) {
-        await AudioPlayer.start(config.filePath);
-      } else {
-        await AudioPlayer.stop();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  React.useEffect(() => {
-    return () => {
-      AudioPlayer.stop();
-    };
-  }, []);
+  const { state, amplitudeLevel, powerLevel, togglePlaying } = usePlayer();
 
   return (
     <View style={[styles.root, style]} {...props}>
@@ -120,16 +50,16 @@ export default function PlayerExample({
         <LevelBar
           style={styles.levelBar}
           barStyle={styles.amplitudeLevelBar}
-          minLevel={AudioPlayer.MIN_AMPLITUDE}
-          maxLevel={AudioPlayer.MAX_AMPLITUDE}
+          minLevel={Player.MIN_AMPLITUDE}
+          maxLevel={Player.MAX_AMPLITUDE}
           level={amplitudeLevel}
         />
 
         <LevelBar
           style={styles.levelBar}
           barStyle={styles.powerLevelBar}
-          minLevel={AudioPlayer.MIN_POWER}
-          maxLevel={AudioPlayer.MAX_POWER}
+          minLevel={Player.MIN_POWER}
+          maxLevel={Player.MAX_POWER}
           level={powerLevel}
         />
       </View>
@@ -148,7 +78,7 @@ export default function PlayerExample({
 
       <Button
         title={
-          state !== AudioPlayer.State.STARTED ? 'Start Playing' : 'Stop Playing'
+          state !== Player.State.STARTED ? 'Start Playing' : 'Stop Playing'
         }
         onPress={togglePlaying}
         disabled={disabled || !state}

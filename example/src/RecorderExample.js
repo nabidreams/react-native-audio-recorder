@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Button,
-  Text,
-  InteractionManager,
-} from 'react-native';
-import { Recorder as AudioRecorder } from '@nabidreams/react-native-audio';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import { Recorder } from '@nabidreams/react-native-audio';
 
+import useRecorder from './useRecorder';
 import LevelBar from './LevelBar';
-import config from './config';
 
 const styles = StyleSheet.create({
   root: {
@@ -48,72 +42,7 @@ export default function RecorderExample({
   disabled = false,
   ...props
 }) {
-  const [state, setState] = React.useState();
-
-  React.useEffect(function listenStateChange() {
-    (async () => {
-      setState(await AudioRecorder.getState());
-    })();
-
-    const subscription = AudioRecorder.addListener(
-      AudioRecorder.EventType.STATE_CHANGE,
-      ({ state }) => {
-        setState(state);
-      },
-    );
-
-    return () => subscription.remove();
-  }, []);
-
-  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
-    AudioRecorder.MIN_AMPLITUDE,
-  );
-
-  const [powerLevel, setPowerLevel] = React.useState(AudioRecorder.MIN_POWER);
-
-  React.useEffect(
-    function handleLevelChange() {
-      async function updateLevel() {
-        if ((await AudioRecorder.getState()) !== AudioRecorder.State.STARTED) {
-          setAmplitudeLevel(AudioRecorder.MIN_AMPLITUDE);
-          setPowerLevel(AudioRecorder.MIN_POWER);
-          return;
-        }
-
-        setAmplitudeLevel(await AudioRecorder.getPeakAmplitude());
-        setPowerLevel(await AudioRecorder.getPeakPower());
-
-        InteractionManager.runAfterInteractions({
-          name: 'updateLevel',
-          gen: () => updateLevel(),
-        });
-      }
-
-      InteractionManager.runAfterInteractions({
-        name: 'updateLevel',
-        gen: () => updateLevel(),
-      });
-    },
-    [state],
-  );
-
-  async function toggleRecording() {
-    try {
-      if (state !== AudioRecorder.State.STARTED) {
-        await AudioRecorder.start(config.filePath);
-      } else {
-        await AudioRecorder.stop();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  React.useEffect(() => {
-    return () => {
-      AudioRecorder.stop();
-    };
-  }, []);
+  const { state, amplitudeLevel, powerLevel, toggleRecording } = useRecorder();
 
   return (
     <View style={[styles.root, style]} {...props}>
@@ -121,16 +50,16 @@ export default function RecorderExample({
         <LevelBar
           style={styles.levelBar}
           barStyle={styles.amplitudeLevelBar}
-          minLevel={AudioRecorder.MIN_AMPLITUDE}
-          maxLevel={AudioRecorder.MAX_AMPLITUDE}
+          minLevel={Recorder.MIN_AMPLITUDE}
+          maxLevel={Recorder.MAX_AMPLITUDE}
           level={amplitudeLevel}
         />
 
         <LevelBar
           style={styles.levelBar}
           barStyle={styles.powerLevelBar}
-          minLevel={AudioRecorder.MIN_POWER}
-          maxLevel={AudioRecorder.MAX_POWER}
+          minLevel={Recorder.MIN_POWER}
+          maxLevel={Recorder.MAX_POWER}
           level={powerLevel}
         />
       </View>
@@ -149,7 +78,7 @@ export default function RecorderExample({
 
       <Button
         title={
-          state !== AudioRecorder.State.STARTED
+          state !== Recorder.State.STARTED
             ? 'Start Recording'
             : 'Stop Recording'
         }
