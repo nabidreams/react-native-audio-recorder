@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const childProcess = require('child_process');
 
 const program = require('commander');
+const syncDirectory = require('sync-directory');
 const parse = require('parse-gitignore');
 const chalk = require('chalk');
 
@@ -48,14 +50,18 @@ const defaultNpmIgnoredPaths = [
   'node_modules',
 ];
 
-require('sync-directory')(sourceDir, targetDir, {
+childProcess.execSync(`rm -rf ${targetDir}`);
+
+syncDirectory(sourceDir, targetDir, {
   watch: program.watch,
   type: 'copy',
   exclude: [
+    ...parse(fs.readFileSync(path.join(sourceDir, '.gitignore'))),
     '.npmignore',
     ...defaultNpmIgnoredPaths,
     ...parse(fs.readFileSync(path.join(sourceDir, '.npmignore'))),
   ],
-  cb: ({ type, path: p }) =>
-    console.log(colorizeType(type), chalk.dim(path.relative(sourceDir, p))),
+  cb: ({ type, path: p }) => {
+    console.log(colorizeType(type), chalk.dim(path.relative(sourceDir, p)));
+  },
 });
