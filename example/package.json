@@ -9,8 +9,9 @@
     "android": "react-native run-android",
     "ios": "cd ios && pod install && cd .. && react-native run-ios",
     "lint": "eslint .",
-    "postinstall": "node ./sync.js && cd .. && yarn",
+    "postinstall": "yarn sync && cd .. && yarn",
     "start": "react-native start",
+    "sync": "node ./sync.js",
     "test": "jest",
     "watch": "node ./sync.js --watch"
   },
