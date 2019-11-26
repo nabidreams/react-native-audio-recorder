@@ -17,21 +17,14 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
         return mapOf(
                 "State" to Recorder.State.values().map { it.name to it.value }.toMap(),
                 "EventType" to EventType.values().map { it.name to it.value }.toMap(),
-                "MIN_AMPLITUDE" to Recorder.MIN_AMPLITUDE,
-                "MAX_AMPLITUDE" to Recorder.MAX_AMPLITUDE,
-                "MIN_POWER" to Recorder.MIN_POWER,
-                "MAX_POWER" to Recorder.MAX_POWER
+                "MIN_LEVEL" to Recorder.MIN_POWER,
+                "MAX_LEVEL" to Recorder.MAX_POWER
         ).toMutableMap()
     }
 
     @ReactMethod
-    fun getPeakAmplitude(promise: Promise) {
-        promise.resolve(recorder.peakAmplitude)
-    }
-
-    @ReactMethod
-    fun getPeakPower(promise: Promise) {
-        promise.resolve(recorder.peakPower)
+    fun getLevel(promise: Promise) {
+        promise.resolve(recorder.maxPower)
     }
 
     @ReactMethod

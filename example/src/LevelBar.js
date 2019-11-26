@@ -13,11 +13,11 @@ const styles = {
 };
 
 export default function LevelBar({
-  style,
-  barStyle,
-  minLevel,
-  maxLevel,
-  level,
+  style = {},
+  barStyle = {},
+  minLevel = 0,
+  maxLevel = 0,
+  level = 0,
   ...props
 }) {
   const height = useAnimatedValue({

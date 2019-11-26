@@ -1,47 +1,58 @@
-@objc(Player)
-class Player: RCTEventEmitter {
-  enum EventType: String {
-    case stateChange = "playerStateChange"
+
+import AVFoundation
+
+class Player: NSObject {
+  enum State: String {
+    case started = "started"
+    case stopped = "stopped"
   }
-
-  override static func requiresMainQueueSetup() -> Bool {
-    return false
+  
+  static let minPower = -160
+  static let maxPower = 0
+  
+  var averagePower: Float {
+    player?.updateMeters()
+    return player?.averagePower(forChannel: 0) ?? -160
   }
-
-  override func constantsToExport() -> [AnyHashable: Any]? {
-    return [
-      "State": [],
-
-      "EventType": [
-        "STATE_CHANGE": EventType.stateChange.rawValue
-      ],
-
-      "MIN_AMPLITUDE": 0,
-      "MAX_AMPLITUDE": 0,
+  
+  var peakPower: Float {
+    player?.updateMeters()
+    return player?.peakPower(forChannel: 0) ?? -160
+  }
+  
+  var state: State {
+    player?.isPlaying ?? false ? .started : .stopped
+  }
+  
+  var stateChangeListener: ((_ state: State) -> Void)? = nil
+  
+  func start(_ filePath: String) throws {
+    do {
+      player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: filePath))
+      player?.isMeteringEnabled = true
+      player?.delegate = self
+      player?.prepareToPlay()
+      player?.play()
       
-      "MIN_POWER": 0,
-      "MAX_POWER": 0,
-    ]
+      stateChangeListener?(state)
+    } catch {
+      stop()
+      throw error
+    }
   }
   
-  override func supportedEvents() -> [String]! {
-    return [
-      EventType.stateChange.rawValue
-    ]
+  func stop() {
+    player?.stop()
+    player = nil
+    
+    stateChangeListener?(state)
   }
   
-  @objc
-  func getRmsAmplitude(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
-  
-  @objc
-  func getRmsPower(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
-  
-  @objc
-  func getState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve("") }
-  
-  @objc
-  func start(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
-  
-  @objc
-  func stop(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(nil) }
+  private var player: AVAudioPlayer? = nil
+}
+
+extension Player: AVAudioPlayerDelegate {
+  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+    stop()
+  }
 }
