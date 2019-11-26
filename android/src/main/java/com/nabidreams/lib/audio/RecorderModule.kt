@@ -42,7 +42,7 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
     @ReactMethod
     fun start(promise: Promise) {
         try {
-            recorder.start(outputFilePath)
+            recorder.start(filePath)
             promise.resolve(null)
         } catch (e: IOException) {
             promise.reject(e)
@@ -55,7 +55,7 @@ class RecorderModule(private val reactContext: ReactApplicationContext) : ReactC
         promise.resolve(null)
     }
 
-    private val outputFilePath: String = "${reactContext.externalCacheDir.absolutePath}/sample.3gp"
+    private val filePath: String = "${reactContext.externalCacheDir.absolutePath}/sample.3gp"
 
     private val recorder: Recorder = Recorder().apply {
         stateChangeListener = { state ->

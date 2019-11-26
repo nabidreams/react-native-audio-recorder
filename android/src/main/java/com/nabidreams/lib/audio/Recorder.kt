@@ -21,8 +21,6 @@ class Recorder {
         STOPPED("recorderStopped")
     }
 
-    private var recorder: MediaRecorder? = null
-
     val peakAmplitude: Int
         get() = recorder?.maxAmplitude ?: 0
 
@@ -61,4 +59,6 @@ class Recorder {
         }
         state = State.STOPPED
     }
+
+    private var recorder: MediaRecorder? = null
 }
