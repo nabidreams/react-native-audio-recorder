@@ -38,6 +38,9 @@ target 'AudioExample' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone.podspec"
+
   target 'AudioExampleTests' do
     inherit! :search_paths
     # Pods for testing
