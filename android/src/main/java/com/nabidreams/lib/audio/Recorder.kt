@@ -17,8 +17,8 @@ class Recorder {
     }
 
     enum class State(val value: String) {
-        STARTED("recorderStarted"),
-        STOPPED("recorderStopped")
+        STARTED("started"),
+        STOPPED("stopped")
     }
 
     val peakAmplitude: Int

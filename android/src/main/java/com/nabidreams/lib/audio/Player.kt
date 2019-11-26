@@ -19,8 +19,8 @@ class Player {
     }
 
     enum class State(val value: String) {
-        STARTED("playerStarted"),
-        STOPPED("playerStopped")
+        STARTED("started"),
+        STOPPED("stopped")
     }
 
     val rmsAmplitude: Double
