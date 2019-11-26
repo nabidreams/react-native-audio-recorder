@@ -6,10 +6,18 @@ class Recorder: NSObject {
     case stopped = "stopped"
   }
   
+  var averagePower: Float {
+    recorder?.updateMeters()
+    return recorder?.averagePower(forChannel: 0) ?? -160
+  }
+  
+  var peakPower: Float {
+    recorder?.updateMeters()
+    return recorder?.peakPower(forChannel: 0) ?? -160
+  }
+  
   var state: State {
-    get {
-      return recorder?.isRecording ?? false ? .started : .stopped
-    }
+    recorder?.isRecording ?? false ? .started : .stopped
   }
   
   var stateChangeListener: ((_ state: State) -> Void)? = nil
@@ -28,6 +36,7 @@ class Recorder: NSObject {
       ]
       
       recorder = try AVAudioRecorder(url: URL(fileURLWithPath: filePath), settings: settings)
+      recorder?.isMeteringEnabled = true
       recorder?.delegate = self
       recorder?.prepareToRecord()
       recorder?.record()
@@ -45,7 +54,7 @@ class Recorder: NSObject {
     
     let session: AVAudioSession! = AVAudioSession.sharedInstance()
     try session.setActive(false)
-
+    
     stateChangeListener?(state)
   }
   
