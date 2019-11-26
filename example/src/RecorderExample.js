@@ -11,23 +11,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 8,
   },
-  levelBarContainer: {
+  levelBar: {
     position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
-    flexDirection: 'row',
-  },
-  levelBar: {
-    flex: 1,
-    height: '100%',
-  },
-  amplitudeLevelBar: {
-    backgroundColor: 'rgba(0, 0, 255, 0.5)',
-  },
-  powerLevelBar: {
-    backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
   levelTextContainer: {
     marginVertical: 8,
@@ -42,37 +31,22 @@ export default function RecorderExample({
   disabled = false,
   ...props
 }) {
-  const { state, amplitudeLevel, powerLevel, toggleRecording } = useRecorder();
+  const { state, level, toggleRecording } = useRecorder();
 
   return (
     <View style={[styles.root, style]} {...props}>
-      <View style={styles.levelBarContainer}>
-        <LevelBar
-          style={styles.levelBar}
-          barStyle={styles.amplitudeLevelBar}
-          minLevel={Recorder.MIN_AMPLITUDE}
-          maxLevel={Recorder.MAX_AMPLITUDE}
-          level={amplitudeLevel}
-        />
-
-        <LevelBar
-          style={styles.levelBar}
-          barStyle={styles.powerLevelBar}
-          minLevel={Recorder.MIN_POWER}
-          maxLevel={Recorder.MAX_POWER}
-          level={powerLevel}
-        />
-      </View>
+      <LevelBar
+        style={styles.levelBar}
+        minLevel={Recorder.MIN_LEVEL}
+        maxLevel={Recorder.MAX_LEVEL}
+        level={level}
+      />
 
       <View style={styles.levelTextContainer}>
-        <Text style={styles.levelText}>Peak Level</Text>
+        <Text style={styles.levelText}>Level</Text>
         <Text style={styles.levelText}>
-          {amplitudeLevel.toFixed(2)}
-          {' (Amplitude)'}
-        </Text>
-        <Text style={styles.levelText}>
-          {powerLevel.toFixed(2)}
-          {' dB  (Power)'}
+          {level.toFixed(2)}
+          {' dB'}
         </Text>
       </View>
 

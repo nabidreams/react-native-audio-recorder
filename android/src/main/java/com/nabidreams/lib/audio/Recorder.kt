@@ -21,11 +21,11 @@ class Recorder {
         STOPPED("stopped")
     }
 
-    val peakAmplitude: Int
+    val maxAmplitude: Int
         get() = recorder?.maxAmplitude ?: 0
 
-    val peakPower: Double
-        get() = calculatePowerFromAmplitude(peakAmplitude)
+    val maxPower: Double
+        get() = calculatePowerFromAmplitude(maxAmplitude)
 
     var state: State = State.STOPPED
         set(value) {

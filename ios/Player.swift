@@ -16,11 +16,8 @@ class Player: RCTEventEmitter {
         "STATE_CHANGE": EventType.stateChange.rawValue
       ],
 
-      "MIN_AMPLITUDE": 0,
-      "MAX_AMPLITUDE": 0,
-      
-      "MIN_POWER": 0,
-      "MAX_POWER": 0,
+      "MIN_LEVEL": 0,
+      "MAX_LEVEL": 0,
     ]
   }
   
@@ -31,10 +28,7 @@ class Player: RCTEventEmitter {
   }
   
   @objc
-  func getRmsAmplitude(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
-  
-  @objc
-  func getRmsPower(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
+  func getLevel(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve(0) }
   
   @objc
   func getState(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void { resolve("") }

@@ -22,23 +22,17 @@ export default () => {
     return () => subscription.remove();
   }, []);
 
-  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
-    Player.MIN_AMPLITUDE,
-  );
-
-  const [powerLevel, setPowerLevel] = React.useState(Player.MIN_AMPLITUDE);
+  const [level, setLevel] = React.useState(Player.MIN_LEVEL);
 
   React.useEffect(
     function handleLevelChange() {
       async function updateLevel() {
         if ((await Player.getState()) !== Player.State.STARTED) {
-          setAmplitudeLevel(Player.MIN_AMPLITUDE);
-          setPowerLevel(Player.MIN_POWER);
+          setLevel(Player.MIN_LEVEL);
           return;
         }
 
-        setAmplitudeLevel(await Player.getRmsAmplitude());
-        setPowerLevel(await Player.getRmsPower());
+        setLevel(await Player.getLevel());
 
         InteractionManager.runAfterInteractions({
           name: 'updateLevel',
@@ -74,8 +68,7 @@ export default () => {
 
   return {
     state,
-    amplitudeLevel,
-    powerLevel,
+    level,
     togglePlaying,
   };
 };

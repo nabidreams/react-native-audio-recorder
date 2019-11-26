@@ -19,11 +19,8 @@ class RecorderModule: RCTEventEmitter {
         "STATE_CHANGE": EventType.stateChange.rawValue
       ],
       
-      "MIN_AMPLITUDE": -160,
-      "MAX_AMPLITUDE": 0,
-      
-      "MIN_POWER": -160,
-      "MAX_POWER": 0,
+      "MIN_LEVEL": Recorder.minPower,
+      "MAX_LEVEL": Recorder.maxPower,
     ]
   }
   
@@ -42,13 +39,8 @@ class RecorderModule: RCTEventEmitter {
   }
   
   @objc
-  func getPeakAmplitude(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
+  func getLevel(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
     resolve(recorder.averagePower)
-  }
-  
-  @objc
-  func getPeakPower(_ resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) -> Void {
-    resolve(recorder.peakPower)
   }
   
   @objc

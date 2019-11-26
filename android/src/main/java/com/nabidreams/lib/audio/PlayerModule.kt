@@ -17,20 +17,13 @@ class PlayerModule(private val reactContext: ReactApplicationContext) : ReactCon
         return mapOf(
                 "State" to Player.State.values().map { it.name to it.value }.toMap(),
                 "EventType" to EventType.values().map { it.name to it.value }.toMap(),
-                "MIN_AMPLITUDE" to Player.MIN_AMPLITUDE,
-                "MAX_AMPLITUDE" to Player.MAX_AMPLITUDE,
-                "MIN_POWER" to Player.MIN_POWER,
-                "MAX_POWER" to Player.MAX_POWER
+                "MIN_LEVEL" to Player.MIN_POWER,
+                "MAX_LEVEL" to Player.MAX_POWER
         ).toMutableMap()
     }
 
     @ReactMethod
-    fun getRmsAmplitude(promise: Promise) {
-        promise.resolve(player.rmsAmplitude)
-    }
-
-    @ReactMethod
-    fun getRmsPower(promise: Promise) {
+    fun getLevel(promise: Promise) {
         promise.resolve(player.rmsPower)
     }
 

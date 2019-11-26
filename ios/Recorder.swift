@@ -6,6 +6,9 @@ class Recorder: NSObject {
     case stopped = "stopped"
   }
   
+  static let minPower = -160
+  static let maxPower = 0
+  
   var averagePower: Float {
     recorder?.updateMeters()
     return recorder?.averagePower(forChannel: 0) ?? -160

@@ -22,23 +22,17 @@ export default () => {
     return () => subscription.remove();
   }, []);
 
-  const [amplitudeLevel, setAmplitudeLevel] = React.useState(
-    Recorder.MIN_AMPLITUDE,
-  );
-
-  const [powerLevel, setPowerLevel] = React.useState(Recorder.MIN_POWER);
+  const [level, setLevel] = React.useState(Recorder.MIN_LEVEL);
 
   React.useEffect(
     function handleLevelChange() {
       async function updateLevel() {
         if ((await Recorder.getState()) !== Recorder.State.STARTED) {
-          setAmplitudeLevel(Recorder.MIN_AMPLITUDE);
-          setPowerLevel(Recorder.MIN_POWER);
+          setLevel(Recorder.MIN_LEVEL);
           return;
         }
 
-        setAmplitudeLevel(await Recorder.getPeakAmplitude());
-        setPowerLevel(await Recorder.getPeakPower());
+        setLevel(await Recorder.getLevel());
 
         InteractionManager.runAfterInteractions({
           name: 'updateLevel',
@@ -74,8 +68,7 @@ export default () => {
 
   return {
     state,
-    amplitudeLevel,
-    powerLevel,
+    level,
     toggleRecording,
   };
 };
