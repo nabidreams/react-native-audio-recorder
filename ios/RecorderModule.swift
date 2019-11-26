@@ -5,7 +5,7 @@ class RecorderModule: RCTEventEmitter {
   }
   
   override static func requiresMainQueueSetup() -> Bool {
-    return false
+    return true
   }
   
   override func constantsToExport() -> [AnyHashable: Any]? {
