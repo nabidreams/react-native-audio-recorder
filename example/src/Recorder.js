@@ -7,6 +7,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import { AudioRecorder } from '@nabidreams/react-native-audio';
+import LevelBar from './LevelBar';
 
 const styles = StyleSheet.create({
   root: {
@@ -20,15 +21,16 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    alignItems: 'flex-end',
     flexDirection: 'row',
   },
-  amplitudeLevelBar: {
+  levelBar: {
     flex: 1,
+    height: '100%',
+  },
+  amplitudeLevelBar: {
     backgroundColor: 'rgba(0, 0, 255, 0.5)',
   },
   powerLevelBar: {
-    flex: 1,
     backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
   levelTextContainer: {
@@ -39,11 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Recorder({
-  styles: stylesProp = {},
-  disabled = false,
-  ...props
-}) {
+export default function Recorder({ style = {}, disabled = false, ...props }) {
   const [state, setState] = React.useState();
 
   React.useEffect(function listenStateChange() {
@@ -64,14 +62,8 @@ export default function Recorder({
   const [amplitudeLevel, setAmplitudeLevel] = React.useState(
     AudioRecorder.MIN_AMPLITUDE,
   );
-  const amplitudeLevelBarHeight =
-    (100 * (amplitudeLevel - AudioRecorder.MIN_AMPLITUDE)) /
-    (AudioRecorder.MAX_AMPLITUDE - AudioRecorder.MIN_AMPLITUDE);
 
   const [powerLevel, setPowerLevel] = React.useState(AudioRecorder.MIN_POWER);
-  const powerLevelBarHeight =
-    (100 * (powerLevel - AudioRecorder.MIN_POWER)) /
-    (AudioRecorder.MAX_POWER - AudioRecorder.MIN_POWER);
 
   React.useEffect(
     function handleLevelChange() {
@@ -123,20 +115,22 @@ export default function Recorder({
   }, []);
 
   return (
-    <View style={{ ...styles.root, ...stylesProp }} {...props}>
+    <View style={[styles.root, style]} {...props}>
       <View style={styles.levelBarContainer}>
-        <View
-          style={{
-            ...styles.amplitudeLevelBar,
-            height: `${amplitudeLevelBarHeight}%`,
-          }}
+        <LevelBar
+          style={styles.levelBar}
+          barStyle={styles.amplitudeLevelBar}
+          minLevel={AudioRecorder.MIN_AMPLITUDE}
+          maxLevel={AudioRecorder.MAX_AMPLITUDE}
+          level={amplitudeLevel}
         />
 
-        <View
-          style={{
-            ...styles.powerLevelBar,
-            height: `${powerLevelBarHeight}%`,
-          }}
+        <LevelBar
+          style={styles.levelBar}
+          barStyle={styles.powerLevelBar}
+          minLevel={AudioRecorder.MIN_POWER}
+          maxLevel={AudioRecorder.MAX_POWER}
+          level={powerLevel}
         />
       </View>
 

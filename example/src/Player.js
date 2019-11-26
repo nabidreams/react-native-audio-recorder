@@ -7,6 +7,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import { AudioPlayer } from '@nabidreams/react-native-audio';
+import LevelBar from './LevelBar';
 
 const styles = StyleSheet.create({
   root: {
@@ -20,15 +21,16 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    alignItems: 'flex-end',
     flexDirection: 'row',
   },
-  amplitudeLevelBar: {
+  levelBar: {
     flex: 1,
+    height: '100%',
+  },
+  amplitudeLevelBar: {
     backgroundColor: 'rgba(0, 0, 255, 0.5)',
   },
   powerLevelBar: {
-    flex: 1,
     backgroundColor: 'rgba(255, 0, 0, 0.5)',
   },
   levelTextContainer: {
@@ -39,11 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Player({
-  styles: stylesProp = {},
-  disabled = false,
-  ...props
-}) {
+export default function Player({ style = {}, disabled = false, ...props }) {
   const [state, setState] = React.useState();
 
   React.useEffect(function listenStateChange() {
@@ -64,14 +62,8 @@ export default function Player({
   const [amplitudeLevel, setAmplitudeLevel] = React.useState(
     AudioPlayer.MIN_AMPLITUDE,
   );
-  const amplitudeLevelBarHeight =
-    (100 * (amplitudeLevel - AudioPlayer.MIN_AMPLITUDE)) /
-    (AudioPlayer.MAX_AMPLITUDE - AudioPlayer.MIN_AMPLITUDE);
 
   const [powerLevel, setPowerLevel] = React.useState(AudioPlayer.MIN_AMPLITUDE);
-  const powerLevelBarHeight =
-    (100 * (powerLevel - AudioPlayer.MIN_POWER)) /
-    (AudioPlayer.MAX_POWER - AudioPlayer.MIN_POWER);
 
   React.useEffect(
     function handleLevelChange() {
@@ -123,20 +115,22 @@ export default function Player({
   }, []);
 
   return (
-    <View style={{ ...styles.root, ...stylesProp }} {...props}>
+    <View style={[styles.root, style]} {...props}>
       <View style={styles.levelBarContainer}>
-        <View
-          style={{
-            ...styles.amplitudeLevelBar,
-            height: `${amplitudeLevelBarHeight}%`,
-          }}
+        <LevelBar
+          style={styles.levelBar}
+          barStyle={styles.amplitudeLevelBar}
+          minLevel={AudioPlayer.MIN_AMPLITUDE}
+          maxLevel={AudioPlayer.MAX_AMPLITUDE}
+          level={amplitudeLevel}
         />
 
-        <View
-          style={{
-            ...styles.powerLevelBar,
-            height: `${powerLevelBarHeight}%`,
-          }}
+        <LevelBar
+          style={styles.levelBar}
+          barStyle={styles.powerLevelBar}
+          minLevel={AudioPlayer.MIN_POWER}
+          maxLevel={AudioPlayer.MAX_POWER}
+          level={powerLevel}
         />
       </View>
 
