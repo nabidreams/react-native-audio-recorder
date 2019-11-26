@@ -6,7 +6,7 @@ import {
   Text,
   InteractionManager,
 } from 'react-native';
-import { AudioRecorder } from '@nabidreams/react-native-audio';
+import { Recorder as AudioRecorder } from '@nabidreams/react-native-audio';
 import LevelBar from './LevelBar';
 
 const styles = StyleSheet.create({
@@ -41,7 +41,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Recorder({ style = {}, disabled = false, ...props }) {
+export default function RecorderExample({
+  style = {},
+  disabled = false,
+  ...props
+}) {
   const [state, setState] = React.useState();
 
   React.useEffect(function listenStateChange() {
@@ -93,15 +97,10 @@ export default function Recorder({ style = {}, disabled = false, ...props }) {
 
   async function toggleRecording() {
     try {
-      switch (state) {
-        case AudioRecorder.State.STARTED:
-          await AudioRecorder.stop();
-          return;
-        case AudioRecorder.State.STOPPED:
-          await AudioRecorder.start();
-          return;
-        default:
-          return;
+      if (state !== AudioRecorder.State.STARTED) {
+        await AudioRecorder.start();
+      } else {
+        await AudioRecorder.stop();
       }
     } catch (err) {
       console.error(err);

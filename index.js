@@ -1,33 +1,33 @@
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
-const { Recorder, Player } = NativeModules;
+const { Recorder: NativeRecorder, Player: NativePlayer } = NativeModules;
 
 function createRecorder() {
-  const eventEmitter = new NativeEventEmitter(Recorder);
+  const eventEmitter = new NativeEventEmitter(NativeRecorder);
 
   const { addListener, removeAllListeners, removeSubscription } = eventEmitter;
 
   return {
-    ...Recorder,
+    ...NativeRecorder,
     addListener: addListener.bind(eventEmitter),
     removeAllListeners: removeAllListeners.bind(eventEmitter),
     removeSubscription: removeSubscription.bind(eventEmitter),
   };
 }
 
-export const AudioRecorder = createRecorder();
+export const Recorder = createRecorder();
 
 function createPlayer() {
-  const eventEmitter = new NativeEventEmitter(Player);
+  const eventEmitter = new NativeEventEmitter(NativePlayer);
 
   const { addListener, removeAllListeners, removeSubscription } = eventEmitter;
 
   return {
-    ...Player,
+    ...NativePlayer,
     addListener: addListener.bind(eventEmitter),
     removeAllListeners: removeAllListeners.bind(eventEmitter),
     removeSubscription: removeSubscription.bind(eventEmitter),
   };
 }
 
-export const AudioPlayer = createPlayer();
+export const Player = createPlayer();

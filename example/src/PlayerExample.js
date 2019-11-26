@@ -6,7 +6,7 @@ import {
   Text,
   InteractionManager,
 } from 'react-native';
-import { AudioPlayer } from '@nabidreams/react-native-audio';
+import { Player as AudioPlayer } from '@nabidreams/react-native-audio';
 import LevelBar from './LevelBar';
 
 const styles = StyleSheet.create({
@@ -41,7 +41,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Player({ style = {}, disabled = false, ...props }) {
+export default function PlayerExample({
+  style = {},
+  disabled = false,
+  ...props
+}) {
   const [state, setState] = React.useState();
 
   React.useEffect(function listenStateChange() {
@@ -93,15 +97,10 @@ export default function Player({ style = {}, disabled = false, ...props }) {
 
   async function togglePlaying() {
     try {
-      switch (state) {
-        case AudioPlayer.State.STARTED:
-          await AudioPlayer.stop();
-          return;
-        case AudioPlayer.State.STOPPED:
-          await AudioPlayer.start();
-          return;
-        default:
-          return;
+      if (state !== AudioPlayer.State.STARTED) {
+        await AudioPlayer.start();
+      } else {
+        await AudioPlayer.stop();
       }
     } catch (err) {
       console.error(err);
