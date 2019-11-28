@@ -1,5 +1,24 @@
 # @nabidreams/react-native-audio
 
+## Table of Contents
+
+<!-- toc -->
+
+- [Getting started](#getting-started)
+  - [Mostly automatic installation](#mostly-automatic-installation)
+  - [Manual installation](#manual-installation)
+    - [iOS](#ios)
+    - [Android](#android)
+- [Usage](#usage)
+- [Development](#development)
+  - [Install Dependancies](#install-dependancies)
+  - [Run Example](#run-example)
+    - [iOS](#ios-1)
+    - [Andoid](#andoid)
+    - [Watch Source Change](#watch-source-change)
+
+<!-- tocstop -->
+
 ## Getting started
 
 `$ npm install @nabidreams/react-native-audio --save`
