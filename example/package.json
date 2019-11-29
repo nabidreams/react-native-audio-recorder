@@ -10,6 +10,7 @@
     "ios": "cd ios && pod install && cd .. && react-native run-ios",
     "lint": "eslint .",
     "postinstall": "yarn sync && cd .. && yarn",
+    "preinstall": "rm -rf node_modules/@nabidreams/react-native-audio",
     "start": "react-native start",
     "sync": "node ./sync.js",
     "test": "jest",
