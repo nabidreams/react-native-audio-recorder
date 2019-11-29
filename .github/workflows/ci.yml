@@ -77,7 +77,7 @@ jobs:
           FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_APP_DISTRIBUTION_TESTERS:
-          FIREBASE_APP_DISTRIBUTION_GROUPS: nabi-dreams
+          FIREBASE_APP_DISTRIBUTION_GROUPS:
         run: |
           export VERSION_NAME=`git rev-parse --short HEAD`
           export VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"`
