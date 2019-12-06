@@ -30,7 +30,7 @@
     "babel-jest": "^24.9.0",
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "firebase-tools": "^7.9.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.57.0",
