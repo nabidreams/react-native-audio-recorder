@@ -84,7 +84,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Permission-Microphone (2.0.3):
+  - Permission-Microphone (2.0.4):
     - RNPermissions
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
@@ -288,7 +288,7 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.5)
   - RNFS (2.16.2):
     - React
-  - RNPermissions (2.0.3):
+  - RNPermissions (2.0.4):
     - React
   - Yoga (1.14.0)
 
@@ -420,7 +420,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: ef79a4728b864946a8aafdbab770d5294faf3b5f
   GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Permission-Microphone: aa3ee97912920c0faeaf8d6dd8ef91de1449386c
+  Permission-Microphone: ed3bfe858d5d0fd0bf0f21d00ceb3a98a809eec6
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -430,7 +430,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-audio: d7834b4fda1c677844eda9eb8f278f3cb75c87e3
+  react-native-audio: ae24f97d1f041795ba666351dc1b960cf4bbbc06
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -442,7 +442,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNFS: 0d4191b1052bef9ce70deff00a5b4169c62bbd9b
-  RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
+  RNPermissions: 35959d09546f1cd60c129ee128146a120ea595c3
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 9354ec7b6e87f74630d8b12c5a8b8b901039a948

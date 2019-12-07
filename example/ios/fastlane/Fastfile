@@ -17,6 +17,10 @@ default_platform :ios
 
 platform :ios do
   before_all do
+    setup_ci(
+      provider: "travis",
+      force: true
+    )
     cocoapods
   end
 
@@ -28,8 +32,6 @@ platform :ios do
   desc "Submit a new Beta Build to Firebase App Distribution"
   desc "This will also make sure the profile is up to date"
   lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-
     ios_set_version(
       version: ENV["VERSION_NAME"]
     )
@@ -38,9 +40,27 @@ platform :ios do
       build_number: ENV["VERSION_CODE"]
     )
 
+    ENV["MATCH_PASSWORD"] = ENV["APPLE_CERT_PASSPHRASE"]
+    match(
+      type: "adhoc",
+      storage_mode: "git",
+      app_identifier: "com.nabidreams.lib.audio.example",
+      username: ENV["APPLE_DEV_ID"],
+      team_id: ENV["APPLE_DEV_TEAM_ID"],
+      git_url: ENV["APPLE_CERT_GIT_URL"]
+    )
+
+    ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = ENV["APPLE_APP_SPECIFIC_PASSWORD"]
     gym(
-      scheme: "AudioExample"
-    ) # Build your app - more options available
+      scheme: "AudioExample",
+      include_symbols: false,
+      include_bitcode: false,
+      export_options: {
+        uploadBitcode: false,
+        uploadSymbols: false,
+        compileBitcode: false
+      }
+    )
 
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],

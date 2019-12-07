@@ -72,13 +72,13 @@ jobs:
         working-directory: example/android
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
           FIREBASE_APP_DISTRIBUTION_TESTERS:
           FIREBASE_APP_DISTRIBUTION_GROUPS:
         run: |
-          export VERSION_NAME=`git rev-parse --short HEAD`
-          export VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"`
+          VERSION_NAME=`git rev-parse --short HEAD` \
+          VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"` \
           bundle exec fastlane beta
 
   ios:
@@ -139,3 +139,23 @@ jobs:
       - name: Test
         working-directory: example/ios
         run: bundle exec fastlane test
+
+      - name: Deploy Beta
+        if: github.ref == 'refs/heads/master'
+        working-directory: example/ios
+        env:
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }} # https://docs.fastlane.tools/best-practices/continuous-integration/#application-specific-passwords
+          APPLE_CERT_GIT_URL: ${{ secrets.APPLE_CERT_GIT_URL }} # https://<token>@github.com/owner/repo.git
+          APPLE_CERT_PASSPHRASE: ${{ secrets.APPLE_CERT_PASSPHRASE }} # Passphrase to decrypt the profiles (https://docs.fastlane.tools/actions/match/#passphrase)
+          APPLE_DEV_ID: ${{ secrets.APPLE_DEV_ID }} # Apple Developer Program Account ID
+          APPLE_DEV_TEAM_ID: ${{ secrets.APPLE_DEV_TEAM_ID }} # Apple Developer Program Team ID
+
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
+          FIREBASE_APP_DISTRIBUTION_TESTERS:
+          FIREBASE_APP_DISTRIBUTION_GROUPS:
+        run: |
+          VERSION_NAME=`git rev-parse --short HEAD` \
+          VERSION_CODE=`git log -1 --format="%cd" --date=format:"%y%m%d%H%M"` \
+          bundle exec fastlane beta

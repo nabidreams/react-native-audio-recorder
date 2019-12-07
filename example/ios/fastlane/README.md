@@ -38,14 +38,6 @@ Submit a new Beta Build to Firebase App Distribution
 
 This will also make sure the profile is up to date
 
-### ios release
-
-```
-fastlane ios release
-```
-
-Deploy a new version to the App Store
-
 ---
 
 This README.md is auto-generated and will be re-generated every time [fastlane](https://fastlane.tools) is run.
