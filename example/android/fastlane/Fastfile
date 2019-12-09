@@ -38,7 +38,7 @@ platform :android do
       firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
       firebase_cli_token: ENV["FIREBASE_TOKEN"],
       testers: ENV["FIREBASE_APP_DISTRIBUTION_TESTERS"],
-      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"]
+      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"],
     )
   end
 end
