@@ -19,7 +19,7 @@ platform :ios do
   before_all do
     setup_ci(
       provider: "travis",
-      force: true
+      force: true,
     )
     cocoapods
   end
@@ -33,33 +33,41 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     ios_set_version(
-      version: ENV["VERSION_NAME"]
+      version: ENV["VERSION_NAME"],
     )
 
     ios_set_build_number(
-      build_number: ENV["VERSION_CODE"]
+      build_number: ENV["VERSION_CODE"],
     )
 
     ENV["MATCH_PASSWORD"] = ENV["APPLE_CERT_PASSPHRASE"]
     match(
-      type: "adhoc",
+      type: "development",
       storage_mode: "git",
-      app_identifier: "com.nabidreams.lib.audio.example",
+      app_identifier: ENV["APPLE_BUNDLE_IDENTIFIER"],
       username: ENV["APPLE_DEV_ID"],
       team_id: ENV["APPLE_DEV_TEAM_ID"],
-      git_url: ENV["APPLE_CERT_GIT_URL"]
+      git_url: ENV["APPLE_CERT_GIT_URL"],
     )
+
+    disable_automatic_code_signing
 
     ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = ENV["APPLE_APP_SPECIFIC_PASSWORD"]
     gym(
       scheme: "AudioExample",
-      include_symbols: false,
-      include_bitcode: false,
+      export_method: "development",
       export_options: {
         uploadBitcode: false,
         uploadSymbols: false,
-        compileBitcode: false
-      }
+        compileBitcode: false,
+      },
+      include_symbols: false,
+      include_bitcode: false,
+      xcargs: {
+        :BUNDLE_IDENTIFIER => ENV["APPLE_BUNDLE_IDENTIFIER"],
+        :DEVELOPMENT_TEAM => ENV["APPLE_DEV_TEAM_ID"],
+        :PROVISIONING_PROFILE_SPECIFIER => "match Development #{ENV["APPLE_BUNDLE_IDENTIFIER"]}",
+      },
     )
 
     firebase_app_distribution(
@@ -67,7 +75,7 @@ platform :ios do
       firebase_cli_path: ENV["FIREBASE_CLI_PATH"],
       firebase_cli_token: ENV["FIREBASE_TOKEN"],
       testers: ENV["FIREBASE_APP_DISTRIBUTION_TESTERS"],
-      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"]
+      groups: ENV["FIREBASE_APP_DISTRIBUTION_GROUPS"],
     )
   end
 end
