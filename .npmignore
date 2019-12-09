@@ -1,3 +1,4 @@
-example
-.prettierrc.js
+.github/
+example/
+.prettierrc
 yarn.lock
