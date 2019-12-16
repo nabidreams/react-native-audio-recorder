@@ -1,4 +1,4 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { Recorder: NativeRecorder, Player: NativePlayer } = NativeModules;
 

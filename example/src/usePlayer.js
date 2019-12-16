@@ -1,6 +1,6 @@
+import { Player } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { InteractionManager } from 'react-native';
-import { Player } from '@nabidreams/react-native-audio';
 
 import config from './config';
 

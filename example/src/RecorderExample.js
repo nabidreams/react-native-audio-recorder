@@ -1,9 +1,9 @@
-import React from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
 import { Recorder } from '@nabidreams/react-native-audio';
+import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-import useRecorder from './useRecorder';
 import LevelBar from './LevelBar';
+import useRecorder from './useRecorder';
 
 const styles = StyleSheet.create({
   root: {
