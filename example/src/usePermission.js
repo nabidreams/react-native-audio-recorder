@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 
 function getPermission() {
   switch (Platform.OS) {

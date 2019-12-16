@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import usePermission from './usePermission';
-import RecorderExample from './RecorderExample';
 import PlayerExample from './PlayerExample';
+import RecorderExample from './RecorderExample';
+import usePermission from './usePermission';
 
 const styles = StyleSheet.create({
   root: {
