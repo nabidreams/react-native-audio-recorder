@@ -846,12 +846,12 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@prettier/plugin-xml@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@prettier/plugin-xml/-/plugin-xml-0.4.0.tgz#7534b5c59bbb9a3391e5cddf85e542303465eb95"
-  integrity sha512-IK0OsEFqqskkAohDvp5GiazlTiDUOJBCFY+0JV0K5hdISXxAFii6ihJlvbgLaoH1kJhIVOzLZfDo16+a7ThSsQ==
+"@prettier/plugin-xml@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@prettier/plugin-xml/-/plugin-xml-0.5.0.tgz#817d4ec7175e14d66073db9761f43322cc005d90"
+  integrity sha512-qbaUxDaCzBISInw44QwlOBkXqRyJgziI19nPIvVPWXRleuiB21ldtgn6XDrUdQN38xrFzKs2kZQuq8Wc6Y/bSg==
   dependencies:
-    "@xml-tools/parser" "^0.4.0"
+    "@xml-tools/parser" "^1.0.0"
     prettier ">=1.10"
 
 "@react-native-community/cli-debugger-ui@^3.0.0":
@@ -995,10 +995,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@xml-tools/parser@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@xml-tools/parser/-/parser-0.4.0.tgz#cc1cd9bbba39d9ee5563082d0656ce57b144f691"
-  integrity sha512-capRg2KdWYkz2QF/ee7L+R7g92eQYgTUIkQm4nwWQEF6oNH09MGvS5nDwGp7BDg5z/UkJ8AQQBJFTLSbv7wIPA==
+"@xml-tools/parser@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@xml-tools/parser/-/parser-1.0.0.tgz#56143ee90efbae81be5be659ae3a0b9c0aebf431"
+  integrity sha512-Q2sFNXdpk1wWkyTEC9wvH6jypu2A+nXY1kcQXBRvFKQlR+PfqKtFBL9nb5J+ILpr4/VP2yPfh9Orn9Y/9Rbosw==
   dependencies:
     chevrotain "6.5.0"
 

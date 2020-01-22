@@ -28,7 +28,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@prettier/plugin-xml": "^0.4.0",
+    "@prettier/plugin-xml": "^0.5.0",
     "husky": "^4.0.10",
     "import-sort-style-module": "^6.0.0",
     "markdown-toc": "^1.2.0",
