@@ -29,7 +29,7 @@
   "dependencies": {},
   "devDependencies": {
     "@prettier/plugin-xml": "^0.7.2",
-    "husky": "^4.2.1",
+    "husky": "^4.2.3",
     "import-sort-style-module": "^6.0.0",
     "markdown-toc": "^1.2.0",
     "prettier": "^1.19.1",
