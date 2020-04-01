@@ -7,7 +7,8 @@
   },
   "scripts": {
     "android": "react-native run-android",
-    "ios": "cd ios && pod install && cd .. && react-native run-ios",
+    "install:pods": "cd ios && pod install --repo-update",
+    "ios": "react-native run-ios",
     "lint": "eslint .",
     "postinstall": "yarn sync && cd .. && yarn",
     "preinstall": "rm -rf node_modules/@nabidreams/react-native-audio",
