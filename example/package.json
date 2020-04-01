@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
-    "react": "16.13.1",
-    "react-native": "0.62.0",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
     "react-native-fs": "^2.16.6",
     "react-native-permissions": "^2.0.10"
   },
@@ -36,7 +36,7 @@
     "jest": "^25.2.3",
     "metro-react-native-babel-preset": "^0.59.0",
     "parse-gitignore": "^1.0.1",
-    "react-test-renderer": "16.13.1",
+    "react-test-renderer": "16.9.0",
     "sync-directory": "^2.1.1"
   },
   "jest": {
