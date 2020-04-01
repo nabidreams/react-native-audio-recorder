@@ -36,7 +36,7 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "parse-gitignore": "^1.0.1",
     "react-test-renderer": "16.13.1",
-    "sync-directory": "^2.1.1"
+    "sync-directory": "^2.1.2"
   },
   "jest": {
     "preset": "react-native"
