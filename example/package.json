@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "@nabidreams/react-native-audio-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
