@@ -1,4 +1,4 @@
-.github/
-example/
+.github
+example
 .prettierrc
 yarn.lock

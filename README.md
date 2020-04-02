@@ -1,24 +1,5 @@
 # @nabidreams/react-native-audio
 
-## Table of Contents
-
-<!-- toc -->
-
-- [Getting started](#getting-started)
-  - [Mostly automatic installation](#mostly-automatic-installation)
-  - [Manual installation](#manual-installation)
-    - [iOS](#ios)
-    - [Android](#android)
-- [Usage](#usage)
-- [Development](#development)
-  - [Install Dependancies](#install-dependancies)
-  - [Run Example](#run-example)
-    - [iOS](#ios-1)
-    - [Andoid](#andoid)
-    - [Watch Source Change](#watch-source-change)
-
-<!-- tocstop -->
-
 ## Getting started
 
 `$ npm install @nabidreams/react-native-audio --save`
@@ -61,35 +42,3 @@ import Audio from '@nabidreams/react-native-audio';
 // TODO: What to do with the module?
 Audio;
 ```
-
-## Development
-
-> Execute the scripts below under `example` directory.
-
-### Install Dependancies
-
-```sh
-$ yarn
-```
-
-### Run Example
-
-#### iOS
-
-```sh
-$ yarn ios
-```
-
-#### Andoid
-
-```sh
-$ yarn android
-```
-
-#### Watch Source Change
-
-```sh
-$ yarn watch
-```
-
-> After native module source change, run `yarn ios` or `yarn android` again to rebuild example app with updated sources.

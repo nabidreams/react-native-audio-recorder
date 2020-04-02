@@ -15,6 +15,7 @@ export default ({
     Animated.timing(animatedValue, {
       toValue: value,
       duration,
+      useNativeDriver: false,
     }).start();
   }, [value]);
 

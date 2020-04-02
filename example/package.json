@@ -1,16 +1,13 @@
 {
   "name": "@nabidreams/react-native-audio-example",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
-  "engines": {
-    "node": "12"
-  },
   "scripts": {
     "android": "react-native run-android",
     "install:pods": "cd ios && pod install --repo-update",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "postinstall": "yarn sync && cd .. && yarn",
+    "postinstall": "yarn sync",
     "preinstall": "rm -rf node_modules/@nabidreams/react-native-audio",
     "start": "react-native start",
     "sync": "node ./sync.js",
@@ -19,8 +16,8 @@
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
-    "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react": "16.11.0",
+    "react-native": "0.62.0",
     "react-native-fs": "^2.16.6",
     "react-native-permissions": "^2.0.10"
   },
@@ -36,7 +33,7 @@
     "jest": "^25.2.4",
     "metro-react-native-babel-preset": "^0.59.0",
     "parse-gitignore": "^1.0.1",
-    "react-test-renderer": "16.9.0",
+    "react-test-renderer": "16.11.0",
     "sync-directory": "^2.1.2"
   },
   "jest": {
