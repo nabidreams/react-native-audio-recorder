@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "preinstall": "rm -rf node_modules/@nabidreams/react-native-audio",
     "postinstall": "yarn sync && cd .. && yarn",
-    "sync": "node ./sync.js"
+    "sync": "node ./sync.js",
+    "watch": "node ./sync.js --watch"
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
