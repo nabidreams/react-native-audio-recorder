@@ -598,7 +598,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioExample.app/AudioExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Audio Example.app/Audio Example";
 			};
 			name = Debug;
 		};
@@ -619,7 +619,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioExample.app/AudioExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Audio Example.app/Audio Example";
 			};
 			name = Release;
 		};
@@ -749,7 +749,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.example-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioExample-tvOS.app/AudioExample-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Audio Example tvOS.app/Audio Example tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -776,7 +776,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.example-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AudioExample-tvOS.app/AudioExample-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Audio Example tvOS.app/Audio Example tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
