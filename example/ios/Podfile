@@ -21,7 +21,7 @@ def flipper_post_install(installer)
   end
 end
 
-target 'example' do
+target 'AudioExample' do
   # Pods for example
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -57,7 +57,7 @@ target 'example' do
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone.podspec"
 
-  target 'exampleTests' do
+  target 'AudioExampleTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -74,10 +74,10 @@ target 'example' do
   end
 end
 
-target 'example-tvOS' do
+target 'AudioExample-tvOS' do
   # Pods for example-tvOS
 
-  target 'example-tvOSTests' do
+  target 'AudioExample-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
