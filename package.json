@@ -1,33 +1,51 @@
 {
-  "name": "react-native-audio",
-  "title": "React Native Audio",
-  "version": "1.0.0",
-  "description": "TODO",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "@nabidreams/react-native-audio",
+  "version": "0.0.1",
+  "description": "React Native Audio",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nabidreams/react-native-audio.git",
-    "baseUrl": "https://github.com/nabidreams/react-native-audio"
+    "url": "https://github.com/nabidreams/react-native-audio.git"
   },
-  "keywords": [
-    "react-native"
-  ],
   "author": {
     "name": "nabidreams",
     "email": "dev@tjnative.com"
   },
-  "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
+  "homepage": "https://github.com/nabidreams/react-native-audio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "audio",
+    "recorder",
+    "player"
+  ],
   "peerDependencies": {
     "react": "^16.8.1",
     "react-native": ">=0.59.0-rc.0 <1.0.x"
   },
   "devDependencies": {
+    "@prettier/plugin-xml": "^0.7.2",
+    "husky": "^4.2.3",
+    "import-sort-style-module": "^6.0.0",
+    "markdown-toc": "^1.2.0",
+    "prettier": "^2.0.2",
+    "prettier-plugin-import-sort": "^0.0.4",
+    "prettier-plugin-package": "^1.0.0",
+    "pretty-quick": "^2.0.1",
     "react": "^16.8.3",
     "react-native": "^0.59.10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "markdown-toc -i ./README.md && git add ./README.md && pretty-quick --staged"
+    }
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module"
+    }
   }
 }

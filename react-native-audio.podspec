@@ -6,15 +6,11 @@ Pod::Spec.new do |s|
   s.name         = "react-native-audio"
   s.version      = package["version"]
   s.summary      = package["description"]
-  s.description  = <<-DESC
-                  react-native-audio
-                   DESC
-  s.homepage     = "https://github.com/nabidreams/react-native-audio"
-  s.license      = "MIT"
-  # s.license    = { :type => "MIT", :file => "FILE_LICENSE" }
-  s.authors      = { "nabidreams" => "dev@tjnative.com" }
-  s.platforms    = { :ios => "9.0", :tvos => "10.0" }
-  s.source       = { :git => "https://github.com/nabidreams/react-native-audio.git", :tag => "#{s.version}" }
+  s.homepage     = package["homepage"]
+  s.license      = package["license"]
+  s.authors      = package["author"]
+  s.platforms    = { :ios => "10.0", :tvos => "10.0" }
+  s.source       = { :git => package["repository"]["url"], :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
   s.requires_arc = true

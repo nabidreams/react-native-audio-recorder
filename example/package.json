@@ -4,26 +4,35 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "install:pods": "cd ios && pod install --repo-update",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "postinstall": "node ../scripts/examples_postinstall.js"
+    "preinstall": "rm -rf node_modules/@nabidreams/react-native-audio",
+    "postinstall": "yarn sync && cd .. && yarn",
+    "sync": "node ./sync.js"
   },
   "dependencies": {
+    "@nabidreams/react-native-audio": "file:../",
     "react": "16.11.0",
     "react-native": "0.62.0",
-    "react-native-audio": "file:../"
+    "react-native-fs": "^2.16.6",
+    "react-native-permissions": "^2.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.9.2",
     "@react-native-community/eslint-config": "^1.0.0",
     "babel-jest": "^25.2.4",
+    "chalk": "^3.0.0",
+    "commander": "^5.0.0",
     "eslint": "^6.8.0",
     "jest": "^25.2.4",
     "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "16.11.0"
+    "parse-gitignore": "^1.0.1",
+    "react-test-renderer": "16.11.0",
+    "sync-directory": "^2.1.2"
   },
   "jest": {
     "preset": "react-native"

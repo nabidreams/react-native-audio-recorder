@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B3E7B58A1CC2AC0600A0062D /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Audio.m */; };
+		10C98CBA2435EB12003E6DE5 /* PlayerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB42435EB12003E6DE5 /* PlayerModule.swift */; };
+		10C98CBB2435EB12003E6DE5 /* RecorderBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB52435EB12003E6DE5 /* RecorderBridge.m */; };
+		10C98CBC2435EB12003E6DE5 /* RecorderModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB62435EB12003E6DE5 /* RecorderModule.swift */; };
+		10C98CBD2435EB12003E6DE5 /* PlayerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB72435EB12003E6DE5 /* PlayerBridge.m */; };
+		10C98CBE2435EB12003E6DE5 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB82435EB12003E6DE5 /* Recorder.swift */; };
+		10C98CBF2435EB12003E6DE5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C98CB92435EB12003E6DE5 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,9 +28,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		10C98CB12435EA21003E6DE5 /* Audio-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Audio-Bridging-Header.h"; sourceTree = "<group>"; };
+		10C98CB42435EB12003E6DE5 /* PlayerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModule.swift; sourceTree = "<group>"; };
+		10C98CB52435EB12003E6DE5 /* RecorderBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecorderBridge.m; sourceTree = "<group>"; };
+		10C98CB62435EB12003E6DE5 /* RecorderModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderModule.swift; sourceTree = "<group>"; };
+		10C98CB72435EB12003E6DE5 /* PlayerBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerBridge.m; sourceTree = "<group>"; };
+		10C98CB82435EB12003E6DE5 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		10C98CB92435EB12003E6DE5 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libAudio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudio.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E7B5881CC2AC0600A0062D /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +60,13 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				B3E7B5881CC2AC0600A0062D /* Audio.h */,
-				B3E7B5891CC2AC0600A0062D /* Audio.m */,
+				10C98CB12435EA21003E6DE5 /* Audio-Bridging-Header.h */,
+				10C98CB92435EB12003E6DE5 /* Player.swift */,
+				10C98CB72435EB12003E6DE5 /* PlayerBridge.m */,
+				10C98CB42435EB12003E6DE5 /* PlayerModule.swift */,
+				10C98CB82435EB12003E6DE5 /* Recorder.swift */,
+				10C98CB52435EB12003E6DE5 /* RecorderBridge.m */,
+				10C98CB62435EB12003E6DE5 /* RecorderModule.swift */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +102,7 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -95,6 +111,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -112,7 +129,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E7B58A1CC2AC0600A0062D /* Audio.m in Sources */,
+				10C98CBE2435EB12003E6DE5 /* Recorder.swift in Sources */,
+				10C98CBB2435EB12003E6DE5 /* RecorderBridge.m in Sources */,
+				10C98CBC2435EB12003E6DE5 /* RecorderModule.swift in Sources */,
+				10C98CBA2435EB12003E6DE5 /* PlayerModule.swift in Sources */,
+				10C98CBF2435EB12003E6DE5 /* Player.swift in Sources */,
+				10C98CBD2435EB12003E6DE5 /* PlayerBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,32 +237,41 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = Audio;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		58B511F11A9E6C8500147676 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Audio;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Audio-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Audio;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Audio-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
