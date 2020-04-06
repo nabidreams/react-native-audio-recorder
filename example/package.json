@@ -17,7 +17,7 @@
   "dependencies": {
     "@nabidreams/react-native-audio": "file:../",
     "react": "16.11.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.1",
     "react-native-fs": "^2.16.6",
     "react-native-permissions": "^2.0.10"
   },
