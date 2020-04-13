@@ -7170,10 +7170,10 @@ react-native-fs@^2.16.6:
     base-64 "^0.1.0"
     utf8 "^3.0.0"
 
-react-native-permissions@^2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.10.tgz#d01f5ce7cc48f99d33f2f7ed32bb70abe5ea03dd"
-  integrity sha512-oQmWgm4tqUYyWmMNtYzNO7U/+6+WHyKiRd5cwNeE1FCJTGh8cJ5HapjHw3d6ZVfhSLzNwWqgJy1P4NpTANYa/g==
+react-native-permissions@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.1.0.tgz#1745cb9dffd0186b0ff2e7b8b76ef63119e3fe51"
+  integrity sha512-RuF1KKIJ5yeQtavwNxcubDYo/TVZ9kThCfaYEzop7mFLHD/ZcIT2vZzomhotFATlnaJgHZZpIaFHP6luHpEdZw==
 
 react-native@0.62.2:
   version "0.62.2"
