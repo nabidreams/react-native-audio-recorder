@@ -40,9 +40,9 @@ class Recorder {
     fun start(outputFilePath: String) {
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.DEFAULT)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             setOutputFile(outputFilePath)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
 
             prepare()
             start()
