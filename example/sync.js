@@ -61,7 +61,7 @@ syncDirectory(sourceDir, targetDir, {
     ...defaultNpmIgnoredPaths,
     ...parse(fs.readFileSync(path.join(sourceDir, '.npmignore'))),
   ],
-  cb: ({ type, path: p }) => {
-    console.log(colorizeType(type), chalk.dim(path.relative(sourceDir, p)));
+  afterSync: ({ type, relativePath }) => {
+    console.log(colorizeType(type), chalk.dim(relativePath));
   },
 });
