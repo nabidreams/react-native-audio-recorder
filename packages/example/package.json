@@ -35,6 +35,7 @@
     "nohoist": [
       "@nabidreams/react-native-audio",
       "@nabidreams/react-native-audio/**",
+      "react",
       "react-native*",
       "react-native*/**"
     ]

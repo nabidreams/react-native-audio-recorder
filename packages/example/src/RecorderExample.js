@@ -1,9 +1,9 @@
-import { Recorder } from '@nabidreams/react-native-audio';
+import { Recorder, useRecorder } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import config from './config';
 import LevelBar from './LevelBar';
-import useRecorder from './useRecorder';
 
 const styles = StyleSheet.create({
   root: {
@@ -31,7 +31,15 @@ export default function RecorderExample({
   disabled = false,
   ...props
 }) {
-  const { state, level, toggleRecording } = useRecorder();
+  const { state, isStarted, level, start, stop } = useRecorder();
+
+  const toggleRecording = React.useCallback(async () => {
+    if (isStarted) {
+      await stop();
+    } else {
+      await start(config.filePath);
+    }
+  }, [isStarted]);
 
   return (
     <View style={[styles.root, style]} {...props}>
@@ -51,11 +59,7 @@ export default function RecorderExample({
       </View>
 
       <Button
-        title={
-          state !== Recorder.State.STARTED
-            ? 'Start Recording'
-            : 'Stop Recording'
-        }
+        title={isStarted ? 'Stop Recording' : 'Start Recording'}
         onPress={toggleRecording}
         disabled={disabled || !state}
       />
