@@ -8,9 +8,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "sync": "node ./sync.js",
-    "test": "jest",
-    "watch": "node ./sync.js --watch"
+    "test": "jest"
   },
   "dependencies": {
     "@nabidreams/react-native-audio": "*",
@@ -24,15 +22,11 @@
     "@babel/runtime": "^7.9.2",
     "@react-native-community/eslint-config": "^1.0.0",
     "babel-jest": "^25.2.4",
-    "chalk": "^4.0.0",
-    "commander": "^5.0.0",
     "eslint": "^6.8.0",
     "firebase-tools": "^8.0.0",
     "jest": "^25.2.4",
     "metro-react-native-babel-preset": "^0.59.0",
-    "parse-gitignore": "^1.0.1",
-    "react-test-renderer": "16.11.0",
-    "sync-directory": "^2.1.2"
+    "react-test-renderer": "16.11.0"
   },
   "jest": {
     "preset": "react-native"
