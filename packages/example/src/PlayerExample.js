@@ -2,6 +2,7 @@ import { Player } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
+import config from './config';
 import LevelBar from './LevelBar';
 import usePlayer from './usePlayer';
 
@@ -31,7 +32,15 @@ export default function PlayerExample({
   disabled = false,
   ...props
 }) {
-  const { state, level, togglePlaying } = usePlayer();
+  const { state, isStarted, level, start, stop } = usePlayer();
+
+  const togglePlaying = React.useCallback(async () => {
+    if (isStarted) {
+      await stop();
+    } else {
+      await start(config.filePath);
+    }
+  }, [isStarted]);
 
   return (
     <View style={[styles.root, style]} {...props}>
@@ -51,9 +60,7 @@ export default function PlayerExample({
       </View>
 
       <Button
-        title={
-          state !== Player.State.STARTED ? 'Start Playing' : 'Stop Playing'
-        }
+        title={isStarted ? 'Stop Playing' : 'Start Playing'}
         onPress={togglePlaying}
         disabled={disabled || !state}
       />

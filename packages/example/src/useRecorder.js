@@ -2,10 +2,24 @@ import { Recorder } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { InteractionManager } from 'react-native';
 
-import config from './config';
-
 export default () => {
   const [state, setState] = React.useState();
+  const isStarted = state === Recorder.State.STARTED;
+
+  const start = React.useCallback(
+    async (filePath) => {
+      if (isStarted) {
+        await stop();
+      }
+
+      await Recorder.start(filePath);
+    },
+    [isStarted],
+  );
+
+  const stop = React.useCallback(async () => {
+    await Recorder.stop();
+  }, []);
 
   React.useEffect(function listenStateChange() {
     (async () => {
@@ -45,20 +59,8 @@ export default () => {
         gen: () => updateLevel(),
       });
     },
-    [state],
+    [isStarted],
   );
-
-  async function toggleRecording() {
-    try {
-      if (state !== Recorder.State.STARTED) {
-        await Recorder.start(config.filePath);
-      } else {
-        await Recorder.stop();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   React.useEffect(() => {
     return () => {
@@ -68,7 +70,9 @@ export default () => {
 
   return {
     state,
+    isStarted,
     level,
-    toggleRecording,
+    start,
+    stop,
   };
 };

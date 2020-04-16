@@ -2,10 +2,24 @@ import { Player } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { InteractionManager } from 'react-native';
 
-import config from './config';
-
 export default () => {
   const [state, setState] = React.useState();
+  const isStarted = state == Player.State.STARTED;
+
+  const start = React.useCallback(
+    async (filePath) => {
+      if (isStarted) {
+        await stop();
+      }
+
+      await Player.start(filePath);
+    },
+    [isStarted],
+  );
+
+  const stop = React.useCallback(async () => {
+    await Player.stop();
+  }, []);
 
   React.useEffect(function listenStateChange() {
     (async () => {
@@ -45,30 +59,20 @@ export default () => {
         gen: () => updateLevel(),
       });
     },
-    [state],
+    [isStarted],
   );
-
-  async function togglePlaying() {
-    try {
-      if (state !== Player.State.STARTED) {
-        await Player.start(config.filePath);
-      } else {
-        await Player.stop();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   React.useEffect(() => {
     return () => {
-      Player.stop();
+      stop();
     };
   }, []);
 
   return {
     state,
+    isStarted,
     level,
-    togglePlaying,
+    start,
+    stop,
   };
 };
