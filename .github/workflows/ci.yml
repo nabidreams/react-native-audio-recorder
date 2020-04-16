@@ -25,19 +25,33 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - name: Cache (example/node_modules)
+      - name: Cache (node_modules)
         uses: actions/cache@v1
         with:
-          path: example/node_modules
-          key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-example/node_modules-
+          path: node_modules
+          key: ${{ runner.OS }}-node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-node_modules-
 
-      - name: Cache (example/android/vendor/bundle)
+      - name: Cache (packages/react-native-audio/node_modules)
         uses: actions/cache@v1
         with:
-          path: example/android/vendor/bundle
-          key: ${{ runner.os }}-example/android/vendor/bundle-${{ hashFiles('example/android/Gemfile.lock') }}
-          restore-keys: ${{ runner.os }}-example/android/vendor/bundle-
+          path: packages/react-native-audio/node_modules
+          key: ${{ runner.OS }}-packages/react-native-audio/node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-packages/react-native-audio/node_modules-
+
+      - name: Cache (packages/example/node_modules)
+        uses: actions/cache@v1
+        with:
+          path: packages/example/node_modules
+          key: ${{ runner.OS }}-packages/example/node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-packages/example/node_modules-
+
+      - name: Cache (packages/example/android/vendor/bundle)
+        uses: actions/cache@v1
+        with:
+          path: packages/example/android/vendor/bundle
+          key: ${{ runner.os }}-packages/example/android/vendor/bundle-${{ hashFiles('packages/example/android/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-packages/example/android/vendor/bundle-
 
       - name: Cache (~/.gradle/caches)
         uses: actions/cache@v1
@@ -47,26 +61,25 @@ jobs:
           restore-keys: ${{ runner.os }}-~/.gradle/caches-
 
       - name: Install Dependencies (Node)
-        working-directory: example
         run: yarn
 
       - name: Install Dependencies (Ruby)
-        working-directory: example/android
+        working-directory: packages/example/android
         run: |
           gem install bundler
           bundle install
 
       - name: Test
-        working-directory: example/android
+        working-directory: packages/example/android
         run: bundle exec fastlane test
 
       - name: Deploy Beta
         if: github.ref == 'refs/heads/master'
-        working-directory: example/android
+        working-directory: packages/example/android
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
+          FIREBASE_CLI_PATH: ${{ github.workspace }}/packages/example/node_modules/.bin/firebase
           FIREBASE_APP_DISTRIBUTION_TESTERS:
           FIREBASE_APP_DISTRIBUTION_GROUPS:
         run: |
@@ -91,55 +104,68 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - name: Cache (example/node_modules)
+      - name: Cache (node_modules)
         uses: actions/cache@v1
         with:
-          path: example/node_modules
-          key: ${{ runner.OS }}-example/node_modules-${{ hashFiles('example/yarn.lock') }}
-          restore-keys: ${{ runner.OS }}-example/node_modules-
+          path: node_modules
+          key: ${{ runner.OS }}-node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-node_modules-
 
-      - name: Cache (example/ios/vendor/bundle)
+      - name: Cache (packages/react-native-audio/node_modules)
         uses: actions/cache@v1
         with:
-          path: example/ios/vendor/bundle
-          key: ${{ runner.os }}-example/ios/vendor/bundle-${{ hashFiles('example/ios/Gemfile.lock') }}
-          restore-keys: ${{ runner.os }}-example/ios/vendor/bundle-
+          path: packages/react-native-audio/node_modules
+          key: ${{ runner.OS }}-packages/react-native-audio/node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-packages/react-native-audio/node_modules-
 
-      - name: Cache (example/ios/Pods)
+      - name: Cache (packages/example/node_modules)
         uses: actions/cache@v1
         with:
-          path: example/ios/Pods
-          key: ${{ runner.os }}-example/ios/Pods-${{ hashFiles('example/ios/Podfile.lock') }}
-          restore-keys: ${{ runner.os }}-example/ios/Pods-
+          path: packages/example/node_modules
+          key: ${{ runner.OS }}-packages/example/node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-packages/example/node_modules-
+
+      - name: Cache (packages/example/ios/vendor/bundle)
+        uses: actions/cache@v1
+        with:
+          path: packages/example/ios/vendor/bundle
+          key: ${{ runner.os }}-packages/example/ios/vendor/bundle-${{ hashFiles('packages/example/ios/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-packages/example/ios/vendor/bundle-
+
+      - name: Cache (packages/example/ios/Pods)
+        uses: actions/cache@v1
+        with:
+          path: packages/example/ios/Pods
+          key: ${{ runner.os }}-packages/example/ios/Pods-${{ hashFiles('packages/example/ios/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-packages/example/ios/Pods-
 
       - name: Install Dependencies (Node)
-        working-directory: example
         run: yarn
 
       - name: Install Dependencies (Ruby)
-        working-directory: example/ios
+        working-directory: packages/example/ios
         run: |
           gem install bundler
           bundle install
 
       - name: Test
-        working-directory: example/ios
+        working-directory: packages/example/ios
         run: bundle exec fastlane test
 
       - name: Deploy Beta
         if: github.ref == 'refs/heads/master'
-        working-directory: example/ios
+        working-directory: packages/example/ios
         env:
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }} # https://docs.fastlane.tools/best-practices/continuous-integration/#application-specific-passwords
           APPLE_CERT_GIT_URL: ${{ secrets.APPLE_CERT_GIT_URL }} # https://<token>@github.com/owner/repo.git
           APPLE_CERT_PASSPHRASE: ${{ secrets.APPLE_CERT_PASSPHRASE }} # Passphrase to decrypt the profiles (https://docs.fastlane.tools/actions/match/#passphrase)
           APPLE_DEV_ID: ${{ secrets.APPLE_DEV_ID }} # Apple Developer Program Account ID
           APPLE_DEV_TEAM_ID: ${{ secrets.APPLE_DEV_TEAM_ID }} # Apple Developer Program Team ID
-          APPLE_BUNDLE_IDENTIFIER: com.nabidreams.lib.audio.example
+          APPLE_BUNDLE_IDENTIFIER: com.nabidreams.lib.audio.packages/example
 
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_IOS }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_CLI_PATH: ${{ github.workspace }}/example/node_modules/.bin/firebase
+          FIREBASE_CLI_PATH: ${{ github.workspace }}/packages/example/node_modules/.bin/firebase
           FIREBASE_APP_DISTRIBUTION_TESTERS:
           FIREBASE_APP_DISTRIBUTION_GROUPS:
         run: |
