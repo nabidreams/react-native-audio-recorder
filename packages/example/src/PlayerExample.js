@@ -1,10 +1,9 @@
-import { Player } from '@nabidreams/react-native-audio';
+import { Player, usePlayer } from '@nabidreams/react-native-audio';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 import config from './config';
 import LevelBar from './LevelBar';
-import usePlayer from './usePlayer';
 
 const styles = StyleSheet.create({
   root: {
